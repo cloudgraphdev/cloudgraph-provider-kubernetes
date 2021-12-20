@@ -1,0 +1,24 @@
+type k8sNamespace {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sNamespaceSpec
+  status: k8sNamespaceStatus
+}
+
+type k8sNamespaceSpec @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  finalizers: [String] @search(by: [hash, regexp])
+}
+
+type k8sNamespaceStatus @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  phase: String @search(by: [hash, regexp])
+  conditions: [k8sConditions]
+}

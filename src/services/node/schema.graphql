@@ -1,0 +1,190 @@
+type k8sNode {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  hostName: String @search(by: [hash, regexp])
+  externalIp: String @search(by: [hash, regexp])
+  internalIp: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sNodeSpec
+  status: k8sNodeStatus
+}
+
+type k8sMetadata @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  annotations: [k8sLabel]
+  clusterName: String @search(by: [hash, regexp])
+  creationTimestamp: String @search(by: [hash, regexp])
+  deletionGracePeriodSeconds: Int @search
+  deletionTimestamp: String @search(by: [hash, regexp])
+  finalizers: [String] @search(by: [hash, regexp])
+  generateName: String @search(by: [hash, regexp])
+  generation: Int @search
+  labels: [k8sLabel]
+  ownerReferences: [k8sNodeOwnerReferences]
+  name: String @search(by: [hash, regexp])
+  namespace: String @search(by: [hash, regexp])
+  resourceVersion: String @search(by: [hash, regexp])
+  selfLink: String @search(by: [hash, regexp])
+}
+
+type k8sNodeSpec @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  providerID: String @search(by: [hash, regexp])
+  unschedulable: Boolean @search
+  configSource: k8sNodeConfigSource
+  taints: [k8sNodeTaint]
+  externalID: String @search(by: [hash, regexp])
+  podCIDR: String @search(by: [hash, regexp])
+  podCIDRs: [String] @search(by: [hash, regexp])
+}
+
+type k8sNodeStatus @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  addresses: [k8sNodeAddress]
+  daemonEndpoints: k8sNodeDaemonEndpoint
+  conditions: [k8sConditions]
+  config: k8sNodeStatusConfig
+  images: [k8sNodeImages]
+  nodeInfo: k8sNodeNodeInfo
+  phase: String @search(by: [hash, regexp])
+  volumesAttached: [k8sNodeVolumesAttached]
+  volumesInUse: [String] @search(by: [hash, regexp])
+}
+
+type k8sNodeStatusConfig @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  active: k8sNodeConfigSource
+  error: String @search(by: [hash, regexp])
+  assigned: k8sNodeConfigSource
+  lastKnownGood: k8sNodeConfigSource
+}
+
+type k8sLabel @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sNodeTaint @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String @id @search(by: [hash, regexp])
+  effect: String @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  timeAdded: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sNodeConfigSource @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  configMap: k8sNodeconfigSourceMap
+}
+
+type k8sNodeconfigSourceMap @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String @search(by: [hash, regexp])
+  kubeletConfigKey: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  namespace: String @search(by: [hash, regexp])
+  resourceVersion: String @search(by: [hash, regexp])
+}
+
+type k8sNodeOwnerReferences @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String! @id @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  blockOwnerDeletion: Boolean @search
+  controller: Boolean @search
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sNodeAddress @generate(
+    query: { get: false, query: true, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String @id @search(by: [hash, regexp])
+  address: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sNodeDaemonEndpoint @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  kubeletEndpoint: k8sNodeDaemonKubeletEndpoint
+}
+
+type k8sNodeDaemonKubeletEndpoint @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  port: Int @search
+}
+
+type k8sConditions @generate(
+    query: { get: false, query: true, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String! @id
+  lastHeartbeatTime: String @search(by: [hash, regexp])
+  lastTransitionTime: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  status: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sNodeImages @generate(
+    query: { get: false, query: true, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String! @id @search(by: [hash, regexp])
+  names: [String] @search(by: [hash, regexp])
+  sizeBytes: Int @search
+}
+
+type k8sNodeNodeInfo @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  architecture: String @search(by: [hash, regexp])
+  bootID: String @search(by: [hash, regexp])
+  containerRuntimeVersion: String @search(by: [hash, regexp])
+  kernelVersion: String @search(by: [hash, regexp])
+  kubeProxyVersion: String @search(by: [hash, regexp])
+  kubeletVersion: String @search(by: [hash, regexp])
+  machineID: String @search(by: [hash, regexp])
+  operatingSystem: String @search(by: [hash, regexp])
+  osImage: String @search(by: [hash, regexp])
+  systemUUID: String @search(by: [hash, regexp])
+}
+
+type k8sNodeVolumesAttached @generate(
+    query: { get: false, query: true, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  id: String @id @search(by: [hash, regexp])
+  devicePath: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
