@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "@autocloud"
+  ],
+  "ignorePatterns": ["*.graphql", "src/types/generated.ts", "tests"]
+}

@@ -1,0 +1,142 @@
+type k8sNode {
+  id: String! @id
+  context: String!
+  apiVersion: String
+  kind: String
+  hostName: String
+  externalIp: String
+  internalIp: String
+  metadata: k8sMetadata
+  spec: k8sNodeSpec
+  status: k8sNodeStatus
+}
+
+type k8sMetadata {
+  annotations: [k8sLabel]
+  clusterName: String
+  creationTimestamp: String
+  deletionGracePeriodSeconds: Int
+  deletionTimestamp: String
+  finalizers: [String]
+  generateName: String
+  generation: Int
+  labels: [k8sLabel]
+  ownerReferences: [k8sNodeOwnerReferences]
+  name: String
+  namespace: String
+  resourceVersion: String
+  selfLink: String
+}
+
+type k8sNodeSpec {
+  providerID: String
+  unschedulable: Boolean
+  configSource: k8sNodeConfigSource
+  taints: [k8sNodeTaint]
+  externalID: String
+  podCIDR: String
+  podCIDRs: [String]
+}
+
+type k8sNodeStatus {
+  addresses: [k8sNodeAddress]
+  daemonEndpoints: k8sNodeDaemonEndpoint
+  conditions: [k8sConditions]
+  config: k8sNodeStatusConfig
+  images: [k8sNodeImages]
+  nodeInfo: k8sNodeNodeInfo
+  phase: String
+  volumesAttached: [k8sNodeVolumesAttached]
+  volumesInUse: [String]
+}
+
+type k8sNodeStatusConfig {
+  active: k8sNodeConfigSource
+  error: String
+  assigned: k8sNodeConfigSource
+  lastKnownGood: k8sNodeConfigSource
+}
+
+type k8sLabel {
+  id: String! @id
+  key: String
+  value: String
+}
+
+type k8sNodeTaint {
+  id: String @id
+  effect: String
+  key: String
+  timeAdded: String
+  value: String
+}
+
+type k8sNodeConfigSource {
+  configMap: k8sNodeconfigSourceMap
+}
+
+type k8sNodeconfigSourceMap {
+  id: String
+  kubeletConfigKey: String
+  name: String
+  namespace: String
+  resourceVersion: String
+}
+
+type k8sNodeOwnerReferences {
+  id: String! @id
+  apiVersion: String
+  blockOwnerDeletion: Boolean
+  controller: Boolean
+  kind: String
+  name: String
+}
+
+type k8sNodeAddress {
+  id: String @id
+  address: String
+  type: String
+}
+
+type k8sNodeDaemonEndpoint {
+  kubeletEndpoint: k8sNodeDaemonKubeletEndpoint
+}
+
+type k8sNodeDaemonKubeletEndpoint {
+  port: Int
+}
+
+type k8sConditions {
+  id: String! @id
+  lastHeartbeatTime: String
+  lastTransitionTime: String
+  message: String
+  reason: String
+  status: String
+  type: String
+}
+
+type k8sNodeImages {
+  id: String! @id
+  names: [String]
+  sizeBytes: Int
+}
+
+type k8sNodeNodeInfo {
+  architecture: String
+  bootID: String
+  containerRuntimeVersion: String
+  kernelVersion: String
+  kubeProxyVersion: String
+  kubeletVersion: String
+  machineID: String
+  operatingSystem: String
+  osImage: String
+  systemUUID: String
+}
+
+type k8sNodeVolumesAttached {
+  id: String @id
+  devicePath: String
+  name: String
+}

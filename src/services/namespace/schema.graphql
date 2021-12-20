@@ -1,0 +1,18 @@
+type k8sNamespace {
+  id: String! @id
+  context: String!
+  apiVersion: String
+  kind: String
+  metadata: k8sMetadata
+  spec: k8sNamespaceSpec
+  status: k8sNamespaceStatus
+}
+
+type k8sNamespaceSpec {
+  finalizers: [String]
+}
+
+type k8sNamespaceStatus {
+  phase: String
+  conditions: [k8sConditions]
+}

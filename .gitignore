@@ -1,0 +1,10 @@
+node_modules
+dist
+.vscode
+.yalc
+yalc.lock
+.env
+!.env.example
+.terraform*
+*.tfstate*
+tfplan
