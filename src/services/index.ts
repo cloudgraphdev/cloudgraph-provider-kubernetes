@@ -46,9 +46,6 @@ export default class Provider extends CloudGraph.Client {
     const kc = new k8s.KubeConfig()
     kc.loadFromDefault()
     const contextList = kc.getContexts()
-    kc.setCurrentContext(
-      'arn:aws:eks:us-east-1:632941798677:cluster/autocloud-sandbox-eks'
-    )
     if (contextList.length > 1) {
       const { contexts } = await this.interface.prompt([
         {
