@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import { V1Namespace } from '@kubernetes/client-node'
 import { K8sNamespace } from '../../types/generated'
+import { convertObjToArrayWithId } from '../../util'
 
 export default ({
   entity,
@@ -60,16 +61,8 @@ export default ({
       type,
     })
   )
-  const mappedLabels = Object.keys(labels).map(key => ({
-    id: cuid(),
-    key,
-    value: labels[key],
-  }))
-  const mappedAnnotations = Object.keys(annotations).map(key => ({
-    id: cuid(),
-    key,
-    value: annotations[key],
-  }))
+  const mappedLabels = convertObjToArrayWithId(labels ?? {})
+  const mappedAnnotations = convertObjToArrayWithId(annotations ?? {})
   return {
     id: uid,
     apiVersion,

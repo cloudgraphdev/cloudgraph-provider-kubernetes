@@ -1,6 +1,7 @@
 import cuid from 'cuid'
 import { V1Node } from '@kubernetes/client-node'
 import { K8sNode } from '../../types/generated'
+import { convertObjToArrayWithId } from '../../util'
 
 export default ({
   entity,
@@ -179,17 +180,9 @@ export default ({
       name: ownerName,
     })
   )
-  const mappedLabels = Object.keys(labels).map(key => ({
-    id: cuid(),
-    key,
-    value: labels[key],
-  }))
-  const mappedAnnotations = Object.keys(annotations).map(key => ({
-    id: cuid(),
-    key,
-    value: annotations[key],
-  }))
-  // TODO: lift address (internalIp and hostName as top level (from addresses))
+  const mappedLabels = convertObjToArrayWithId(labels ?? {})
+  const mappedAnnotations = convertObjToArrayWithId(annotations ?? {})
+
   return {
     id: uid,
     context,
