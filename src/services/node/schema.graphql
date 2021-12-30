@@ -82,7 +82,7 @@ type k8sNodeTaint @generate(
     query: { get: false, query: false, aggregate: false }
     mutation: { add: false, delete: false }
   ) {
-  id: String @id @search(by: [hash, regexp])
+  id: String! @id @search(by: [hash, regexp])
   effect: String @search(by: [hash, regexp])
   key: String @search(by: [hash, regexp])
   timeAdded: String @search(by: [hash, regexp])
@@ -123,7 +123,7 @@ type k8sNodeAddress @generate(
     query: { get: false, query: true, aggregate: false }
     mutation: { add: false, delete: false }
   ) {
-  id: String @id @search(by: [hash, regexp])
+  id: String! @id @search(by: [hash, regexp])
   address: String @search(by: [hash, regexp])
   type: String @search(by: [hash, regexp])
 }
@@ -146,7 +146,7 @@ type k8sConditions @generate(
     query: { get: false, query: true, aggregate: false }
     mutation: { add: false, delete: false }
   ) {
-  id: String! @id
+  id: String! @id @search(by: [hash, regexp])
   lastHeartbeatTime: String @search(by: [hash, regexp])
   lastTransitionTime: String @search(by: [hash, regexp])
   message: String @search(by: [hash, regexp])
@@ -184,7 +184,7 @@ type k8sNodeVolumesAttached @generate(
     query: { get: false, query: true, aggregate: false }
     mutation: { add: false, delete: false }
   ) {
-  id: String @id @search(by: [hash, regexp])
+  id: String! @id @search(by: [hash, regexp])
   devicePath: String @search(by: [hash, regexp])
   name: String @search(by: [hash, regexp])
 }
