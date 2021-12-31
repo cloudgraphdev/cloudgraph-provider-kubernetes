@@ -19,7 +19,6 @@ export default class Provider extends CloudGraph.Client {
   constructor(config: any) {
     super(config)
     this.properties = enums
-    this.credentials = 'test'
   }
 
   private credentials: undefined | string

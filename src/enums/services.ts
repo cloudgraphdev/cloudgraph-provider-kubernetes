@@ -1,4 +1,5 @@
 export default {
   node: 'node',
-  namespace: 'namespace'
+  namespace: 'namespace',
+  pod: 'pod'
 }

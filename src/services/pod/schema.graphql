@@ -1,0 +1,735 @@
+type k8sPod {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sPodSpec
+  status: k8sPodStatus
+}
+
+type k8sPodSpec {
+  activeDeadlineSeconds: Int @search
+  affinity: k8sPodAffinity
+  automountServiceAccountToken: Boolean @search
+  dnsPolicy: String @search(by: [hash, regexp])
+  enableServiceLinks: Boolean @search
+  hostIpc: Boolean @search
+  hostNetwork: Boolean @search
+  hostPid: Boolean @search
+  hostname: String @search(by: [hash, regexp])
+  nodeName: String @search(by: [hash, regexp])
+  preemptionPolicy: String @search(by: [hash, regexp])
+  priority: Int @search
+  priorityClassName: String @search(by: [hash, regexp])
+  restartPolicy: String @search(by: [hash, regexp])
+  runtimeClassName: String @search(by: [hash, regexp])
+  schedulerName: String @search(by: [hash, regexp])
+  serviceAccount: String @search(by: [hash, regexp])
+  serviceAccountName: String @search(by: [hash, regexp])
+  setHostnameAsFqdn: Boolean @search
+  shareProcessNamespace: Boolean @search
+  subdomain: String @search(by: [hash, regexp])
+  terminationGracePeriodSeconds: Int @search
+  containers: [k8sPodContainer]
+  ephemeralContainers: [k8sPodContainer]
+  initContainers: [k8sPodContainer]
+  imagePullSecrets: [k8sPodImageSecrets]
+  nodeSelector: [k8sKeyValueArray]
+  overhead: [k8sKeyValueArray]
+  readinessGates: [k8sPodReadinessGates]
+  securityContext: k8sPodSecurityContext
+  dnsConfig: k8sPodDnsConfig
+  hostAliases: [k8sPodHostAlias]
+  tolerations: [k8sPodTolerations]
+  topologySpreadConstraints: [k8sPodTopologySpreadConstraints]
+  volumes: [k8sPodvolumes]
+}
+
+type k8sPodvolumes {
+  id: String! @id @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  awsElasticBlockStore: k8sAwsElasticBlockStore
+  azureDisk: k8sAzureDisk
+  azureFile: k8sAzureFile
+  cephfs: k8sCephfs
+  cinder: k8sCinder
+  configMap: k8sVolumeConfigMap
+  csi: k8sVolumeCsi
+  downwardApi: k8sVolumeDownwardApi
+  emptyDir: k8sVolumeEmptyDir
+  ephemeral: k8sVolumeEphemeral
+  fc: k8sVolumeFc
+  flexVolume: k8sVolumeFlexVolume
+  flocker: k8sVolumeFlocker
+  gcePersistentDisk: k8sVolumeGcePersistentDisk
+  gitRepo: k8sVolumeGitRepo
+  glusterfs: k8sVolumeGlusterfs
+  hostPath: k8sVolumeHostPath
+  iscsi: k8sVolumeIscsi
+  nfs: k8sVolumeNfs
+  persistentVolumeClaim: k8sVolumePersistentVolumeClaim
+  photonPersistentDisk: k8sVolumePhotonPersistentDisk
+  portworxVolume: k8sVolumePortworxVolume
+  projected: k8sVolumeProjected
+  quobyte: k8sVolumeQuobyte
+  rbd: k8sVolumeRbd
+  scaleIo: k8sVolumeScaleIo
+  secret: k8sVolumeSecret
+  storageos: k8sVolumeStorageos
+  vsphereVolume: k8sVolumeVsphereVolume
+}
+
+type k8sAwsElasticBlockStore {
+  fsType: String @search(by: [hash, regexp])
+  partition: Int @search
+  readOnly: Boolean @search
+  volumeId: String @search(by: [hash, regexp])
+}
+
+type k8sAzureDisk {
+  cachingMode: String @search(by: [hash, regexp])
+  diskName: String @search(by: [hash, regexp])
+  diskUri: String @search(by: [hash, regexp])
+  fsType: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+}
+
+type k8sAzureFile {
+  readOnly: Boolean @search
+  secretName: String @search(by: [hash, regexp])
+  shareName: String @search(by: [hash, regexp])
+}
+
+type k8sCephfs {
+  monitors: [String] @search(by: [hash, regexp])
+  path: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  secretFile: String @search(by: [hash, regexp])
+  user: String @search(by: [hash, regexp])
+  secretRef: k8sVolumeSecretRefObj
+}
+
+type k8sCinder {
+  fsType: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  secretRef: k8sVolumeSecretRefObj
+  volumeId: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeConfigMap {
+  defaultMode: Int @search
+  items: [k8sVolumeItem]
+  name: String @search(by: [hash, regexp])
+  optional: Boolean @search
+}
+
+type k8sVolumeCsi {
+  driver: String @search(by: [hash, regexp])
+  fsType: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  nodePublishSecretRef: k8sVolumeSecretRefObj
+  volumeAttributes: [k8sKeyValueArray]
+}
+
+type k8sVolumeDownwardApi {
+  defaultMode: Int @search
+  items: [k8sVolumeDownwardApiItems]
+}
+
+type k8sVolumeEmptyDir {
+  medium: String @search(by: [hash, regexp])
+  sizeLimit: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeEphemeral {
+  volumeClaimTemplate: k8sVolumeClaimTemplate
+}
+
+type k8sVolumeFc {
+  fsType: String @search(by: [hash, regexp])
+  lun: Int @search
+  readOnly: Boolean @search
+  targetWWNs: [String] @search(by: [hash, regexp])
+  wwids: [String] @search(by: [hash, regexp])
+}
+
+type k8sVolumeFlexVolume {
+  driver: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  fsType: String @search(by: [hash, regexp])
+  secretRef: k8sVolumeSecretRefObj
+  options: [k8sKeyValueArray]
+}
+
+type k8sVolumeFlocker {
+  datasetName: String @search(by: [hash, regexp])
+  datasetUuid: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeGcePersistentDisk {
+  fsType: String @search(by: [hash, regexp])
+  partition: Int @search
+  pdName: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+}
+
+type k8sVolumeGitRepo {
+  directory: String @search(by: [hash, regexp])
+  repository: String @search(by: [hash, regexp])
+  revision: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeGlusterfs {
+  endpoints: String @search(by: [hash, regexp])
+  path: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+}
+
+type k8sVolumeHostPath {
+  path: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeIscsi {
+  chapAuthDiscovery: Boolean @search
+  chapAuthSession: Boolean @search
+  fsType: String @search(by: [hash, regexp])
+  initiatorName: String @search(by: [hash, regexp])
+  iqn: String @search(by: [hash, regexp])
+  iscsiInterface: String @search(by: [hash, regexp])
+  lun: Int @search
+  portals: [String] @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  secretRef: k8sVolumeSecretRefObj
+  targetPortal: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeNfs {
+  path: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  server: String @search(by: [hash, regexp])
+}
+
+type k8sVolumePhotonPersistentDisk {
+  fsType: String @search(by: [hash, regexp])
+  pdId: String @search(by: [hash, regexp])
+}
+
+type k8sVolumePortworxVolume {
+  fsType: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  volumeId: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeProjected {
+  defaultMode: Int @search
+  sources: [k8sVolumeProjectedSources]
+}
+
+type k8sVolumeQuobyte {
+  group: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  registry: String @search(by: [hash, regexp])
+  tenant: String @search(by: [hash, regexp])
+  user: String @search(by: [hash, regexp])
+  volume: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeRbd {
+  fsType: String @search(by: [hash, regexp])
+  image: String @search(by: [hash, regexp])
+  keyring: String @search(by: [hash, regexp])
+  monitors: [String] @search(by: [hash, regexp])
+  pool: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  secretRef: k8sVolumeSecretRefObj
+  user: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeScaleIo {
+  fsType: String @search(by: [hash, regexp])
+  gateway: String @search(by: [hash, regexp])
+  protectionDomain: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  secretRef: k8sVolumeSecretRefObj
+  sslEnabled: Boolean @search
+  storageMode: String @search(by: [hash, regexp])
+  storagePool: String @search(by: [hash, regexp])
+  system: String @search(by: [hash, regexp])
+  volumeName: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeSecret {
+  defaultMode: Int @search
+  optional: Boolean @search
+  secretName: String @search(by: [hash, regexp])
+  items: [k8sVolumeItem]
+}
+
+type k8sVolumeStorageos {
+  fsType: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  secretRef: k8sVolumeSecretRefObj
+  volumeName: String @search(by: [hash, regexp])
+  volumeNamespace: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeVsphereVolume {
+  fsType: String @search(by: [hash, regexp])
+  storagePolicyId: String @search(by: [hash, regexp])
+  storagePolicyName: String @search(by: [hash, regexp])
+  volumePath: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeProjectedSources {
+  configMap: k8sVolumeConfigMap
+  downwardApi: k8sVolumeProjectedSourcesDownwardApi
+  secret: k8sVolumeConfigMap
+  serviceAccountToken: k8sVolumeProjectedSourcesServiceAccountToken
+}
+
+type k8sVolumeProjectedSourcesServiceAccountToken {
+  audience: String @search(by: [hash, regexp])
+  expirationSeconds: Int @search
+  path: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeProjectedSourcesDownwardApi {
+  items: [k8sVolumeDownwardApiItems]
+}
+
+type k8sVolumePersistentVolumeClaim {
+  claimName: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+}
+
+type k8sVolumeClaimTemplate {
+  metadata: k8sVolumeClaimTemplateMetadata
+  spec: k8sVolumeClaimTemplateSpec
+}
+
+type k8sVolumeClaimTemplateMetadata {
+  annotations: [k8sKeyValueArray]
+  clusterName: String @search(by: [hash, regexp])
+  creationTimestamp: String @search(by: [hash, regexp])
+  deletionGracePeriodSeconds: Int @search
+  deletionTimestamp: String @search(by: [hash, regexp])
+  finalizers: [String] @search(by: [hash, regexp])
+  generateName: String @search(by: [hash, regexp])
+  generation: Int @search
+  labels: [k8sKeyValueArray]
+  name: String @search(by: [hash, regexp])
+  namespace: String @search(by: [hash, regexp])
+  ownerReferences: [k8sVolumeOwnerReference],
+  resourceVersion: String @search(by: [hash, regexp])
+  selfLink: String @search(by: [hash, regexp])
+  metadataUid: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeClaimTemplateSpec {
+  accessModes: [String] @search(by: [hash, regexp])
+  dataSource: k8sVolumeclaimTemplateDataSource
+  dataSourceRef: k8sVolumeclaimTemplateDataSource
+  resources: k8sPodResources
+  selector: k8sPodAffinitySelector
+  storageClassName: String @search(by: [hash, regexp])
+  volumeMode: String @search(by: [hash, regexp])
+  volumeName: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeclaimTemplateDataSource {
+  apiGroup: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeOwnerReference {
+  id: String! @id @search(by: [hash, regexp])
+  ownerUid: String @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  blockOwnerDeletion: Boolean @search
+  controller: Boolean @search
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeDownwardApiItems {
+  id: String! @id @search(by: [hash, regexp])
+  mode: Int @search
+  path: String @search(by: [hash, regexp])
+  fieldRef: k8sPodFieldRef
+  resourceFieldRef: k8sPodResourceFieldRef
+}
+
+type k8sVolumeItem {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  mode: Int @search
+  path: String @search(by: [hash, regexp])
+}
+
+type k8sVolumeSecretRefObj {
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sPodAffinity {
+  nodeAffinity: k8sPodNodeAffinity
+  podAffinity: k8sPodAffinityType
+  podAntiAffinity: k8sPodAffinityType
+}
+
+type k8sPodNodeAffinity {
+  requiredDuringSchedulingIgnoredDuringExecution: k8sPodNodeAffinityRequired
+  preferredDuringSchedulingIgnoredDuringExecution: [k8sPodPreferredAffinity]
+}
+
+type k8sPodNodeAffinityRequired {
+  nodeSelectorTerms: [k8sPodAffinityNodeSelector]
+}
+
+type k8sPodAffinityType {
+  requiredDuringSchedulingIgnoredDuringExecution: [k8sPodAffinityTerm]
+  preferredDuringSchedulingIgnoredDuringExecution: [k8sPodPreferredAffinity]
+}
+
+type k8sPodAffinityNodeSelector {
+  id: String! @id @search(by: [hash, regexp])
+  matchExpressions: [k8sPodNodeSelectorValue]
+  matchFields: [k8sPodNodeSelectorValue]
+}
+
+type k8sPodAffinityTerm {
+  id: String! @id @search(by: [hash, regexp])
+  labelSelector: k8sPodAffinitySelector
+  namespaceSelector: k8sPodAffinitySelector
+  namespaces: [String] @search(by: [hash, regexp])
+  topologyKey: String @search(by: [hash, regexp])
+}
+
+type k8sPodPreferredAffinity {
+  id: String! @id @search(by: [hash, regexp])
+  weight: Int @search
+  preference: k8sPodAffinityTerm
+  podAffinityTerm: k8sPodAffinityTerm
+}
+
+type k8sPodAffinitySelector {
+  matchExpressions: [k8sPodNodeSelectorValue]
+  matchLabels: [k8sKeyValueArray]
+}
+
+type k8sPodNodeSelectorValue {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  operator: String @search(by: [hash, regexp])
+  values: [String] @search(by: [hash, regexp])
+}
+
+type k8sPodContainer {
+  id: String! @id @search(by: [hash, regexp])
+  args: [String] @search(by: [hash, regexp])
+  command: [String] @search(by: [hash, regexp])
+  env: [k8sPodEnv]
+  envFrom: [k8sPodEnvFrom]
+  image: String @search(by: [hash, regexp])
+  imagePullPolicy: String @search(by: [hash, regexp])
+  lifecycle: k8sPodLifecycle
+  livenessProbe: k8sPodProbe
+  name: String @search(by: [hash, regexp])
+  ports: [k8sPodPorts]
+  readinessProbe: k8sPodProbe
+  resources: k8sPodResources
+  securityContext: k8sPodSecurityContext
+  startupProbe: k8sPodProbe
+  stdin: Boolean @search
+  stdinOnce: Boolean @search
+  terminationMessagePath: String @search(by: [hash, regexp])
+  terminationMessagePolicy: String @search(by: [hash, regexp])
+  tty: Boolean @search
+  volumeDevices: [k8sPodVolumeDevices]
+  volumeMounts: [k8sPodVolumeMounts]
+  workingDir: String @search(by: [hash, regexp])
+}
+
+type k8sPodEnv {
+  id: String! @id @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+  valueFrom: k8sPodEnvValueFrom
+}
+
+type k8sPodEnvValueFrom {
+  configMapKeyRef: k8sPodEnvConfigMapKeyRef
+  fieldRef: k8sPodFieldRef
+  resourceFieldRef: k8sPodResourceFieldRef
+  secretKeyRef: k8sPodEnvConfigMapKeyRef
+}
+
+type k8sPodEnvConfigMapKeyRef {
+  key: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  optional: Boolean @search
+}
+
+type k8sPodFieldRef {
+  apiVersion: String @search(by: [hash, regexp])
+  fieldPath: String @search(by: [hash, regexp])
+}
+
+type k8sPodResourceFieldRef {
+  containerName: String @search(by: [hash, regexp])
+  divisor: String @search(by: [hash, regexp])
+  resource: String @search(by: [hash, regexp])
+}
+
+type k8sPodEnvFrom {
+  id: String! @id @search(by: [hash, regexp])
+  prefix: String @search(by: [hash, regexp])
+  configMapRef: k8sPodEnvConfigMapKeyRef
+  secretRef: k8sPodEnvConfigMapKeyRef
+}
+
+type k8sPodLifecycle {
+  postStart: k8sPodLifecycleStatus
+  preStop: k8sPodLifecycleStatus
+}
+
+type k8sPodLifecycleStatus {
+  httpGet: k8sPodHttpGet
+  exec: k8sPodExec
+  tcpSocket: k8sPodSocket
+}
+
+type k8sPodHttpGet {
+  httpHeaders: [k8sPodLifecycleHttpGetHeaders]
+  host: String @search(by: [hash, regexp])
+  path: String @search(by: [hash, regexp])
+  scheme: String @search(by: [hash, regexp])
+  port: String @search(by: [hash, regexp])
+}
+
+type k8sPodLifecycleHttpGetHeaders {
+  id: String! @id @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sPodExec {
+  command: [String] @search(by: [hash, regexp])
+}
+
+type k8sPodSocket {
+  host: String @search(by: [hash, regexp])
+  port: String @search(by: [hash, regexp])
+}
+
+type k8sPodProbe {
+  exec: k8sPodExec
+  failureThreshold: Int @search
+  httpGet: k8sPodHttpGet
+  initialDelaySeconds: Int @search
+  periodSeconds: Int @search
+  successThreshold: Int @search
+  tcpSocket: k8sPodSocket
+  terminationGracePeriodSeconds: Int @search
+  timeoutSeconds: Int @search
+}
+
+type k8sPodPorts {
+  id: String! @id @search(by: [hash, regexp])
+  containerPort: Int @search
+  hostIp: String @search(by: [hash, regexp])
+  hostPort: Int @search
+  name: String @search(by: [hash, regexp])
+  protocol: String @search(by: [hash, regexp])
+}
+
+type k8sPodResources {
+  limits: [k8sKeyValueArray]
+  requests: [k8sKeyValueArray]
+}
+
+type k8sKeyValueArray {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sPodSecurityContext {
+  allowPrivilegeEscalation: Boolean @search
+  capabilities: k8sPodSecurityContextCapabilities
+  privileged: Boolean @search
+  procMount: String @search(by: [hash, regexp])
+  sysctls: [k8sPodSecurityContextSysCtls]
+  fsGroup: Int @search
+  fsGroupChangePolicy: String @search(by: [hash, regexp])
+  readOnlyRootFilesystem: Boolean @search
+  runAsGroup: Int @search
+  runAsNonRoot: Boolean @search
+  runAsUser: Int @search
+  supplementalGroups: [Int] @search
+  seLinuxOptions: k8sPodSecurityContextSeLinuxOptions
+  seccompProfile: k8sPodSecurityContextSeccompProfile
+  windowsOptions: k8sPodSecurityContextWindowsOptions
+}
+
+type k8sPodSecurityContextSysCtls {
+  id: String! @id
+  name: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sPodSecurityContextCapabilities {
+  add: [String] @search(by: [hash, regexp])
+  drop: [String] @search(by: [hash, regexp])
+}
+
+type k8sPodSecurityContextSeLinuxOptions {
+  level: String @search(by: [hash, regexp])
+  role: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+  user: String @search(by: [hash, regexp])
+}
+
+type k8sPodSecurityContextSeccompProfile {
+  localhostProfile: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sPodSecurityContextWindowsOptions {
+  gmsaCredentialSpec: String @search(by: [hash, regexp])
+  gmsaCredentialSpecName: String @search(by: [hash, regexp])
+  hostProcess: Boolean @search
+  runAsUserName: String @search(by: [hash, regexp])
+}
+
+type k8sPodVolumeDevices {
+  id: String! @id @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  devicePath: String @search(by: [hash, regexp])
+}
+
+type k8sPodVolumeMounts {
+  id: String! @id @search(by: [hash, regexp])
+  mountPath: String @search(by: [hash, regexp])
+  mountPropagation: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  subPath: String @search(by: [hash, regexp])
+  subPathExpr: String @search(by: [hash, regexp])
+}
+
+type k8sPodImageSecrets {
+  id: String! @id @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sPodReadinessGates {
+  id: String! @id @search(by: [hash, regexp])
+  conditionType: String @search(by: [hash, regexp])
+}
+
+type k8sPodDnsConfig {
+  nameservers: [String] @search(by: [hash, regexp])
+  searches: [String] @search(by: [hash, regexp])
+  options: [k8sPodDnsConfigOptions]
+}
+
+type k8sPodDnsConfigOptions {
+  id: String! @id @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sPodHostAlias {
+  id: String! @id @search(by: [hash, regexp])
+  ip: String @search(by: [hash, regexp])
+  hostNames: [String] @search(by: [hash, regexp])
+}
+
+type k8sPodTolerations {
+  id: String! @id @search(by: [hash, regexp])
+  effect: String @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  operator: String @search(by: [hash, regexp])
+  tolerationSeconds: Int @search
+  value: String @search(by: [hash, regexp])
+}
+
+type k8sPodTopologySpreadConstraints {
+  id: String @id @search(by: [hash, regexp])
+  labelSelector: k8sPodAffinitySelector
+  maxSkew: Int @search
+  topologyKey: String @search(by: [hash, regexp])
+  whenUnsatisfiable: String @search(by: [hash, regexp])
+}
+
+type k8sPodStatus {
+  conditions: [k8sPodConditions]
+  containerStatuses: [k8sPodContainerStatus]
+  ephemeralContainerStatuses: [k8sPodContainerStatus]
+  initContainerStatuses: [k8sPodContainerStatus]
+  phase: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  hostIp: String @search(by: [hash, regexp])
+  podIp: String @search(by: [hash, regexp])
+  podIps: [k8sPodIps]
+  nominatedNodeName: String @search(by: [hash, regexp])
+  qosClass: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  startTime: String @search(by: [hash, regexp])
+}
+
+type k8sPodConditions {
+  id: String! @id @search(by: [hash, regexp])
+  lastProbeTime: String @search(by: [hash, regexp])
+  lastTransitionTime: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  status: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sPodContainerStatus {
+  id: String! @id @search(by: [hash, regexp])
+  containerId: String @search(by: [hash, regexp])
+  imageId: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  ready: Boolean @search
+  restartCount: Int @search
+  started: Boolean @search
+  state: k8sPodContainerState
+  lastState: k8sPodContainerState
+}
+
+type k8sPodContainerState {
+  waiting: k8sPodContainerStateWaiting
+  running: k8sPodContainerStateRunning
+  terminated: k8sPodContainerStateTerminated
+}
+
+type k8sPodContainerStateRunning {
+  startedAt: String @search(by: [hash, regexp])
+}
+
+type k8sPodContainerStateWaiting {
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+}
+
+type k8sPodContainerStateTerminated {
+  containerId: String @search(by: [hash, regexp])
+  exitCode: Int @search
+  finishedAt: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  signal: Int @search
+  startedAt: String @search(by: [hash, regexp])
+}
+
+type k8sPodIps {
+  id: String! @id @search(by: [hash, regexp])
+  ip: String @search(by: [hash, regexp])
+}
