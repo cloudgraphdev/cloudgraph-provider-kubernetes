@@ -3,7 +3,7 @@ import format from './format'
 import mutation from './mutation'
 
 
-export default class Namespace {
+export default class Deployment {
   format = format.bind(this)
 
   getData = getData.bind(this)
