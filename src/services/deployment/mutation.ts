@@ -1,5 +1,5 @@
-export default `mutation($input: [Addk8sNamespaceInput!]!) {
-  addk8sNamespace(input: $input, upsert: true) {
+export default `mutation($input: [Addk8sDeploymentInput!]!) {
+  addk8sDeployment(input: $input, upsert: true) {
     numUids
   }
 }`;
