@@ -68,6 +68,7 @@ type k8sServiceLoadBalancer {
 }
 
 type k8sServiceLoadBalancerIngress {
+  id: String! @id @search(by: [hash, regexp])
   hostname: String @search(by: [hash, regexp])
   ip: String @search(by: [hash, regexp])
   ports: [k8sServiceLoadbalancerIngressPort]
