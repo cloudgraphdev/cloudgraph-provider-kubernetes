@@ -1,5 +1,6 @@
 export default {
   node: 'node',
   namespace: 'namespace',
-  pod: 'pod'
+  pod: 'pod',
+  deployment: 'deployment'
 }

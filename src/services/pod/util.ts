@@ -1,5 +1,6 @@
 import cuid from 'cuid'
 import {
+  V1PodSpec,
   V1NodeSelectorTerm,
   V1NodeSelectorRequirement,
   V1PodAffinityTerm,
@@ -374,24 +375,25 @@ export const formatSpecVolumes = (volumes: V1Volume[]) => {
           selfLink,
           uid,
         } = ephemeral?.volumeClaimTemplate?.metadata ?? {}
-        const mappedOwnerReferences = ownerReferences?.map(
-          ({
-            apiVersion,
-            blockOwnerDeletion,
-            controller,
-            kind,
-            name: ownerReferenceName,
-            uid: ownerUid,
-          }) => ({
-            id: cuid(),
-            ownerUid,
-            apiVersion,
-            blockOwnerDeletion,
-            controller,
-            kind,
-            name: ownerReferenceName,
-          })
-        ) ?? []
+        const mappedOwnerReferences =
+          ownerReferences?.map(
+            ({
+              apiVersion,
+              blockOwnerDeletion,
+              controller,
+              kind,
+              name: ownerReferenceName,
+              uid: ownerUid,
+            }) => ({
+              id: cuid(),
+              ownerUid,
+              apiVersion,
+              blockOwnerDeletion,
+              controller,
+              kind,
+              name: ownerReferenceName,
+            })
+          ) ?? []
         const formattedEphemeralMetadata = {
           annotations: convertObjToArrayWithId(annotations ?? {}),
           clusterName,
@@ -577,10 +579,263 @@ export const formatSpecVolumes = (volumes: V1Volume[]) => {
             fsType: vsphereVolume.fsType,
             storagePolicyId: vsphereVolume.storagePolicyID,
             storagePolicyName: vsphereVolume.storagePolicyName,
-            volumePath: vsphereVolume.volumePath
+            volumePath: vsphereVolume.volumePath,
           },
         }
       }
     ) ?? []
   )
+}
+
+export const formatSpec = (spec: V1PodSpec) => {
+  const {
+    activeDeadlineSeconds,
+    affinity: {
+      nodeAffinity: {
+        preferredDuringSchedulingIgnoredDuringExecution,
+        requiredDuringSchedulingIgnoredDuringExecution: {
+          nodeSelectorTerms,
+        } = {},
+      } = {},
+      podAffinity: {
+        requiredDuringSchedulingIgnoredDuringExecution:
+          podAffinityRequiredDuringSchedulingIgnoredDuringExecution,
+        preferredDuringSchedulingIgnoredDuringExecution:
+          podAffinityPreferredDuringSchedulingIgnoredDuringExecution,
+      } = {},
+      podAntiAffinity: {
+        requiredDuringSchedulingIgnoredDuringExecution:
+          podAntiAffinityRequiredDuringSchedulingIgnoredDuringExecution,
+        preferredDuringSchedulingIgnoredDuringExecution:
+          podAntiAffinityPreferredDuringSchedulingIgnoredDuringExecution,
+      } = {},
+    } = {},
+    containers,
+    dnsConfig: { nameservers, options, searches } = {},
+    readinessGates,
+    securityContext = {},
+    ephemeralContainers,
+    hostAliases,
+    imagePullSecrets,
+    initContainers,
+    automountServiceAccountToken,
+    dnsPolicy,
+    enableServiceLinks,
+    hostIPC,
+    hostNetwork,
+    hostPID,
+    hostname,
+    nodeSelector,
+    overhead,
+    nodeName,
+    preemptionPolicy,
+    priority,
+    priorityClassName,
+    restartPolicy,
+    runtimeClassName,
+    schedulerName,
+    serviceAccount,
+    serviceAccountName,
+    setHostnameAsFQDN,
+    shareProcessNamespace,
+    subdomain,
+    terminationGracePeriodSeconds,
+    tolerations,
+    topologySpreadConstraints,
+    volumes,
+  } = spec
+
+  const mappedPreferredDuringSchedulingIgnoredDuringExecution =
+    preferredDuringSchedulingIgnoredDuringExecution?.map(
+      ({ preference, weight }) => {
+        return {
+          id: cuid(),
+          weight,
+          preference: formatNodeSelectorTerm(preference),
+        }
+      }
+    ) ?? []
+  const mappedNodeSelectorTerms = mapNodeSelectorTerms(nodeSelectorTerms)
+  const mappedPodAffinityRdsIde =
+    podAffinityRequiredDuringSchedulingIgnoredDuringExecution?.map(term => ({
+      id: cuid(),
+      ...formatAffinityTerm(term),
+    })) ?? []
+  const mappedPodAffinityPdsIde =
+    podAffinityPreferredDuringSchedulingIgnoredDuringExecution?.map(
+      ({ weight, podAffinityTerm }) => {
+        return {
+          id: cuid(),
+          weight,
+          podAffinityTerm: {
+            id: cuid(),
+            ...formatAffinityTerm(podAffinityTerm),
+          },
+        }
+      }
+    ) ?? []
+  const mappedPodAntiAffinityRdsIde =
+    podAntiAffinityRequiredDuringSchedulingIgnoredDuringExecution?.map(
+      term => ({
+        id: cuid(),
+        ...formatAffinityTerm(term),
+      })
+    ) ?? []
+  const mappedPodAntiAffinityPdsIde =
+    podAntiAffinityPreferredDuringSchedulingIgnoredDuringExecution?.map(
+      ({ weight, podAffinityTerm }) => {
+        return {
+          id: cuid(),
+          weight,
+          podAffinityTerm: {
+            id: cuid(),
+            ...formatAffinityTerm(podAffinityTerm),
+          },
+        }
+      }
+    ) ?? []
+
+  const mappedContainers =
+    containers?.map(container => ({
+      id: cuid(),
+      ...formatContainer(container),
+    })) ?? []
+
+    const mappedEphemeralContainers =
+    ephemeralContainers?.map(container => ({
+      id: cuid(),
+      ...formatContainer(container),
+    })) ?? []
+
+  const mappedInitContainers =
+    initContainers?.map(container => ({
+      id: cuid(),
+      ...formatContainer(container),
+    })) ?? []
+
+  const mappedDnsOptions =
+    options?.map(option => ({
+      id: cuid(),
+      ...option,
+    })) ?? []
+
+  const mappedHostAliases =
+    hostAliases?.map(alias => ({
+      id: cuid(),
+      ...alias,
+    })) ?? []
+
+  const mappedImagePullSecrets = imagePullSecrets?.map(secret => ({
+    id: cuid(),
+    ...secret,
+  }))
+
+  const mappedNodeSelector = convertObjToArrayWithId(nodeSelector)
+  const mappedOverhead = convertObjToArrayWithId(overhead)
+
+  const formattedSecurityContext = {
+    ...securityContext,
+    sysctls: securityContext.sysctls?.map(ctl => ({
+      id: cuid(),
+      ...ctl,
+    })),
+  }
+
+  const mappedTolerations = tolerations?.map(
+    ({ effect, key, operator, tolerationSeconds, value }) => ({
+      id: cuid(),
+      effect,
+      key,
+      operator,
+      tolerationSeconds,
+      value,
+    })
+  )
+
+  const mappedTopologySpreadConstraints = topologySpreadConstraints?.map(
+    ({ labelSelector, maxSkew, topologyKey, whenUnsatisfiable }) => {
+      const { matchExpressions, matchLabels } = labelSelector
+      const mappedMatchExpressions =
+        formatMatchedExpressionsAndFields(matchExpressions)
+      const mappedMatchLabels = convertObjToArrayWithId(matchLabels)
+      return {
+        id: cuid(),
+        labelSelector: {
+          matchExpressions: mappedMatchExpressions,
+          matchLabels: mappedMatchLabels,
+        },
+        maxSkew,
+        topologyKey,
+        whenUnsatisfiable,
+      }
+    }
+  )
+
+  const mappedSpecVolumes = formatSpecVolumes(volumes)
+
+  return {
+    activeDeadlineSeconds,
+      affinity: {
+        nodeAffinity: {
+          preferredDuringSchedulingIgnoredDuringExecution:
+            mappedPreferredDuringSchedulingIgnoredDuringExecution,
+          requiredDuringSchedulingIgnoredDuringExecution: {
+            nodeSelectorTerms: mappedNodeSelectorTerms,
+          },
+        },
+        podAffinity: {
+          requiredDuringSchedulingIgnoredDuringExecution:
+            mappedPodAffinityRdsIde,
+          preferredDuringSchedulingIgnoredDuringExecution:
+            mappedPodAffinityPdsIde,
+        },
+        podAntiAffinity: {
+          requiredDuringSchedulingIgnoredDuringExecution:
+            mappedPodAntiAffinityRdsIde,
+          preferredDuringSchedulingIgnoredDuringExecution:
+            mappedPodAntiAffinityPdsIde,
+        },
+      },
+      automountServiceAccountToken,
+      dnsPolicy,
+      enableServiceLinks,
+      hostIpc: hostIPC,
+      hostNetwork,
+      hostPid: hostPID,
+      hostname,
+      nodeName,
+      preemptionPolicy,
+      priority,
+      priorityClassName,
+      restartPolicy,
+      runtimeClassName,
+      schedulerName,
+      serviceAccount,
+      serviceAccountName,
+      setHostnameAsFqdn: setHostnameAsFQDN,
+      shareProcessNamespace,
+      subdomain,
+      terminationGracePeriodSeconds,
+      containers: mappedContainers,
+      ephemeralContainers: mappedEphemeralContainers,
+      initContainers: mappedInitContainers,
+      imagePullSecrets: mappedImagePullSecrets,
+      nodeSelector: mappedNodeSelector,
+      overhead: mappedOverhead,
+      readinessGates:
+        readinessGates?.map(gate => ({
+          id: cuid(),
+          ...gate,
+        })) ?? [],
+      securityContext: formattedSecurityContext,
+      dnsConfig: {
+        nameservers,
+        searches,
+        options: mappedDnsOptions,
+      },
+      hostAliases: mappedHostAliases,
+      tolerations: mappedTolerations,
+      topologySpreadConstraints: mappedTopologySpreadConstraints,
+      volumes: mappedSpecVolumes
+  }
 }

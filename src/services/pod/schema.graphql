@@ -659,7 +659,7 @@ type k8sPodTolerations {
 }
 
 type k8sPodTopologySpreadConstraints {
-  id: String @id @search(by: [hash, regexp])
+  id: String! @id @search(by: [hash, regexp])
   labelSelector: k8sPodAffinitySelector
   maxSkew: Int @search
   topologyKey: String @search(by: [hash, regexp])
