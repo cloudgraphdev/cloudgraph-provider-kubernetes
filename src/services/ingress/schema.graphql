@@ -1,0 +1,64 @@
+type k8sIngress {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sIngressSpec
+  status: k8sIngressStatus
+}
+
+type k8sIngressSpec {
+  defaultBackend: k8sIngressBackend
+  ingressClassName: String @search(by: [hash, regexp])
+  rules: [k8sIngressRule]
+  tls: [k8sIngressTls]
+}
+
+type k8sIngressStatus {
+  loadBalancer: k8sServiceLoadBalancer
+}
+
+type k8sIngressBackend {
+  resource: k8sIngressBackendResource
+  service: k8sIngressBackendService
+}
+
+type k8sIngressRule {
+  id: String! @id
+  host: String @search(by: [hash, regexp])
+  http: k8sIngressRuleHttp
+}
+
+type k8sIngressTls {
+  id: String! @id @search(by: [hash, regexp])
+  hosts: [String] @search(by: [hash, regexp])
+  secretName: String @search(by: [hash, regexp])
+}
+
+type k8sIngressRuleHttp {
+  paths: [k8sIngressRuleHttpPath]
+}
+
+type k8sIngressRuleHttpPath {
+  id: String! @id @search(by: [hash, regexp])
+  path: String @search(by: [hash, regexp])
+  pathType: String @search(by: [hash, regexp])
+  backend: k8sIngressBackend
+}
+
+type k8sIngressBackendResource {
+  apiGroup: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sIngressBackendService {
+  name: String @search(by: [hash, regexp])
+  port: k8sIngressBackendServicePort
+}
+
+type k8sIngressBackendServicePort {
+  name: String @search(by: [hash, regexp])
+  number: Int @search
+}

@@ -3,5 +3,6 @@ export default {
   namespace: 'namespace',
   pod: 'pod',
   deployment: 'deployment',
-  service: 'service'
+  service: 'service',
+  ingress: 'ingress'
 }
