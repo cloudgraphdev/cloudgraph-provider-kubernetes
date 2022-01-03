@@ -2,5 +2,6 @@ export default {
   node: 'node',
   namespace: 'namespace',
   pod: 'pod',
-  deployment: 'deployment'
+  deployment: 'deployment',
+  service: 'service'
 }

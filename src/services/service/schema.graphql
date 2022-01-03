@@ -1,0 +1,81 @@
+type k8sService {
+  id: String! @id @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  context: String
+  metadata: k8sMetadata
+  spec: k8sServiceSpec
+  status: k8sServiceStatus
+}
+
+type k8sServiceSpec {
+  allocateLoadBalancerNodePorts: Boolean @search 
+  clusterIp: String 
+  clusterIps: [String] 
+  externalIps: [String] 
+  externalName: String 
+  externalTrafficPolicy: String 
+  healthCheckNodePort: Int @search 
+  internalTrafficPolicy: String 
+  ipFamilies: [String] 
+  ipFamilyPolicy: String 
+  loadBalancerClass: String 
+  loadBalancerIp: String 
+  loadBalancerSourceRanges: [String] 
+  ports: [k8sServiceSpecPort] 
+  publishNotReadyAddresses: Boolean @search 
+  selector: [k8sKeyValueArray] 
+  sessionAffinity: String 
+  sessionAffinityConfig: k8sServiceSessionAffinityConfig 
+  type: String 
+}
+
+type k8sServiceStatus {
+  conditions: [k8sServiceCondition]
+  loadBalancer: k8sServiceLoadBalancer
+}
+
+type k8sServiceSpecPort {
+  id: String! @id
+  appProtocol: String
+  name: String
+  nodePort: Int @search
+  port: Int @search
+  protocol: String
+  targetPort: String
+}
+
+type k8sServiceSessionAffinityConfig {
+  clientIp: k8sServiceSessionAffinityConfigClientIp
+}
+
+type k8sServiceSessionAffinityConfigClientIp {
+  timeoutSeconds: Int @search
+}
+
+type k8sServiceCondition {
+  id: String! @id
+  lastTransitionTime: String
+  observedGeneration: Int @search
+  message: String
+  reason: String
+  status: String
+  type: String
+}
+
+type k8sServiceLoadBalancer {
+  ingress: [k8sServiceLoadBalancerIngress]
+}
+
+type k8sServiceLoadBalancerIngress {
+  hostname: String
+  ip: String
+  ports: [k8sServiceLoadbalancerIngressPort]
+}
+
+type k8sServiceLoadbalancerIngressPort {
+  id: String! @id
+  error: String
+  port: Int @search
+  protocol: String
+}
