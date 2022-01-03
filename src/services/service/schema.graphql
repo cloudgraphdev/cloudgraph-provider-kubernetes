@@ -10,24 +10,24 @@ type k8sService {
 
 type k8sServiceSpec {
   allocateLoadBalancerNodePorts: Boolean @search 
-  clusterIp: String 
-  clusterIps: [String] 
-  externalIps: [String] 
-  externalName: String 
-  externalTrafficPolicy: String 
+  clusterIp: String @search(by: [hash, regexp])
+  clusterIps: [String] @search(by: [hash, regexp])
+  externalIps: [String] @search(by: [hash, regexp])
+  externalName: String @search(by: [hash, regexp])
+  externalTrafficPolicy: String @search(by: [hash, regexp])
   healthCheckNodePort: Int @search 
-  internalTrafficPolicy: String 
-  ipFamilies: [String] 
-  ipFamilyPolicy: String 
-  loadBalancerClass: String 
-  loadBalancerIp: String 
-  loadBalancerSourceRanges: [String] 
+  internalTrafficPolicy: String @search(by: [hash, regexp])
+  ipFamilies: [String] @search(by: [hash, regexp])
+  ipFamilyPolicy: String @search(by: [hash, regexp])
+  loadBalancerClass: String @search(by: [hash, regexp])
+  loadBalancerIp: String @search(by: [hash, regexp])
+  loadBalancerSourceRanges: [String] @search(by: [hash, regexp])
   ports: [k8sServiceSpecPort] 
   publishNotReadyAddresses: Boolean @search 
   selector: [k8sKeyValueArray] 
-  sessionAffinity: String 
+  sessionAffinity: String @search(by: [hash, regexp])
   sessionAffinityConfig: k8sServiceSessionAffinityConfig 
-  type: String 
+  type: String @search(by: [hash, regexp])
 }
 
 type k8sServiceStatus {
@@ -37,12 +37,12 @@ type k8sServiceStatus {
 
 type k8sServiceSpecPort {
   id: String! @id
-  appProtocol: String
-  name: String
+  appProtocol: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
   nodePort: Int @search
   port: Int @search
-  protocol: String
-  targetPort: String
+  protocol: String @search(by: [hash, regexp])
+  targetPort: String @search(by: [hash, regexp])
 }
 
 type k8sServiceSessionAffinityConfig {
@@ -54,13 +54,13 @@ type k8sServiceSessionAffinityConfigClientIp {
 }
 
 type k8sServiceCondition {
-  id: String! @id
-  lastTransitionTime: String
+  id: String! @id @search(by: [hash, regexp])
+  lastTransitionTime: String @search(by: [hash, regexp])
   observedGeneration: Int @search
-  message: String
-  reason: String
-  status: String
-  type: String
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  status: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
 }
 
 type k8sServiceLoadBalancer {
@@ -68,14 +68,14 @@ type k8sServiceLoadBalancer {
 }
 
 type k8sServiceLoadBalancerIngress {
-  hostname: String
-  ip: String
+  hostname: String @search(by: [hash, regexp])
+  ip: String @search(by: [hash, regexp])
   ports: [k8sServiceLoadbalancerIngressPort]
 }
 
 type k8sServiceLoadbalancerIngressPort {
-  id: String! @id
-  error: String
+  id: String! @id @search(by: [hash, regexp])
+  error: String @search(by: [hash, regexp])
   port: Int @search
-  protocol: String
+  protocol: String @search(by: [hash, regexp])
 }

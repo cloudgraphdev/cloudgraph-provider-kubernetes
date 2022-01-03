@@ -4,6 +4,20 @@ import { K8sService } from '../../types/generated'
 import formatMetadata from '../../util/metadata'
 import { convertObjToArrayWithId } from '../../util'
 
+export const mapLoadBalancerIngress = (ingressArray: V1LoadBalancerIngress[] = []) => {
+  return ingressArray.map(({ hostname, ip, ports: ingressPorts }) => ({
+    id: cuid(),
+    hostname,
+    ip,
+    ports: ingressPorts?.map(({ error, port, protocol }) => ({
+      id: cuid(),
+      error,
+      port,
+      protocol
+    })) ?? []
+  }))
+}
+
 export default ({
   entity,
   context,
@@ -66,20 +80,6 @@ export default ({
     clientIp: {
       timeoutSeconds: sessionAffinityConfig?.clientIP?.timeoutSeconds
     }
-  }
-
-  const mapLoadBalancerIngress = (ingressArray: V1LoadBalancerIngress[] = []) => {
-    return ingressArray.map(({ hostname, ip, ports: ingressPorts }) => ({
-      id: cuid(),
-      hostname,
-      ip,
-      ports: ingressPorts?.map(({ error, port, protocol }) => ({
-        id: cuid(),
-        error,
-        port,
-        protocol
-      })) ?? []
-    }))
   }
 
   const formattedSelector = convertObjToArrayWithId(selector)
