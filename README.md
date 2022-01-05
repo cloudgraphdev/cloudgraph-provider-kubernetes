@@ -36,10 +36,11 @@ Authenticate the CloudGraph k8s Provider any of the following ways:
 
 | Service          | Relations |
 | ---------------- | --------- |
+| deployment       |           |
+| ingress          |           |
 | namespace        |           |
 | node             |           |
 | pod              |           |
-| deployment       |           |
 | service          |           |
 
 

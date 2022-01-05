@@ -1,8 +1,8 @@
 export default {
-  node: 'node',
-  namespace: 'namespace',
-  pod: 'pod',
   deployment: 'deployment',
-  service: 'service',
-  ingress: 'ingress'
+  ingress: 'ingress',
+  namespace: 'namespace',
+  node: 'node',
+  pod: 'pod',
+  service: 'service'
 }
