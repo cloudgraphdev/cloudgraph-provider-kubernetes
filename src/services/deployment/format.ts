@@ -25,7 +25,7 @@ export default ({
       selector,
       strategy,
       template
-    },
+    } = {},
     status: { 
       availableReplicas,
       collisionCount,
@@ -35,7 +35,7 @@ export default ({
       replicas: statusReplicas,
       unavailableReplicas,
       updatedReplicas
-    },
+    } = {},
   } = entity
 
   const formattedMetadata = formatMetadata(metadata)
