@@ -55,9 +55,9 @@ export default class Provider extends CloudGraph.Client {
         },
       ])
       if (contexts.length) {
-        result.contexts = contexts
+        result.contexts = contexts.map(context => ({ name: context }))
       } else {
-        result.contexts = contextList.map(({ name }) => name)
+        result.contexts = contextList.map(({ name }) => ({ name }))
       }
     } else {
       if (!contextList.length) {
@@ -67,7 +67,7 @@ export default class Provider extends CloudGraph.Client {
         )
         throw new Error('No k8s context found')
       }
-      result.contexts = contextList.map(({ name }) => name)
+      result.contexts = contextList.map(({ name }) => ({ name }))
     }
     // Prompt for resources if flag set
     if (flags.resources) {
@@ -137,8 +137,28 @@ export default class Provider extends CloudGraph.Client {
     ]
     const { context } = config
     const kc = new k8s.KubeConfig()
-    kc.loadFromDefault()
-    kc.setCurrentContext(context)
+    if (context.user || context.file) {
+      if (context.user) {
+        kc.loadFromOptions({
+          clusters: [context.cluster],
+          users: [context.user],
+          contexts: [
+            {
+              name: context.name,
+              user: context.user.name,
+              cluster: context.cluster.name,
+            },
+          ],
+          currentContext: context.name,
+        })
+      } else {
+        kc.loadFromFile(context.file)
+        kc.setCurrentContext(context.name)
+      }
+    } else {
+      kc.loadFromDefault()
+      kc.setCurrentContext(context.name)
+    }
     const coreClient = kc.makeApiClient(k8s.CoreV1Api)
     const networkingClient = kc.makeApiClient(k8s.NetworkingV1Api)
     const batchClient = kc.makeApiClient(k8s.BatchV1Api)
@@ -147,7 +167,7 @@ export default class Provider extends CloudGraph.Client {
       core: coreClient,
       networking: networkingClient,
       batch: batchClient,
-      apps: appsClient
+      apps: appsClient,
     }
     // networkingClient.listIngressForAllNamespaces
     // batchClient.listCronJobForAllNamespaces
@@ -175,7 +195,7 @@ export default class Provider extends CloudGraph.Client {
           })
           result.push({
             name: resource,
-            context,
+            context: context.name,
             data,
           })
           this.logger.success(`${resource} scan completed`)

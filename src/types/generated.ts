@@ -128,6 +128,71 @@ export type K8sDeploymentTemplate = {
   spec?: Maybe<K8sPodSpec>;
 };
 
+export type K8sIngress = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sIngressSpec>;
+  status?: Maybe<K8sIngressStatus>;
+};
+
+export type K8sIngressBackend = {
+  resource?: Maybe<K8sIngressBackendResource>;
+  service?: Maybe<K8sIngressBackendService>;
+};
+
+export type K8sIngressBackendResource = {
+  apiGroup?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type K8sIngressBackendService = {
+  name?: Maybe<Scalars['String']>;
+  port?: Maybe<K8sIngressBackendServicePort>;
+};
+
+export type K8sIngressBackendServicePort = {
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['Int']>;
+};
+
+export type K8sIngressRule = {
+  id: Scalars['String'];
+  host?: Maybe<Scalars['String']>;
+  http?: Maybe<K8sIngressRuleHttp>;
+};
+
+export type K8sIngressRuleHttp = {
+  paths?: Maybe<Array<Maybe<K8sIngressRuleHttpPath>>>;
+};
+
+export type K8sIngressRuleHttpPath = {
+  id: Scalars['String'];
+  path?: Maybe<Scalars['String']>;
+  pathType?: Maybe<Scalars['String']>;
+  backend?: Maybe<K8sIngressBackend>;
+};
+
+export type K8sIngressSpec = {
+  defaultBackend?: Maybe<K8sIngressBackend>;
+  ingressClassName?: Maybe<Scalars['String']>;
+  rules?: Maybe<Array<Maybe<K8sIngressRule>>>;
+  tls?: Maybe<Array<Maybe<K8sIngressTls>>>;
+};
+
+export type K8sIngressStatus = {
+  loadBalancer?: Maybe<K8sServiceLoadBalancer>;
+};
+
+export type K8sIngressTls = {
+  id: Scalars['String'];
+  hosts?: Maybe<Array<Maybe<Scalars['String']>>>;
+  secretName?: Maybe<Scalars['String']>;
+};
+
 export type K8sKeyValueArray = {
   id: Scalars['String'];
   key?: Maybe<Scalars['String']>;
@@ -748,6 +813,7 @@ export type K8sServiceLoadBalancer = {
 };
 
 export type K8sServiceLoadBalancerIngress = {
+  id: Scalars['String'];
   hostname?: Maybe<Scalars['String']>;
   ip?: Maybe<Scalars['String']>;
   ports?: Maybe<Array<Maybe<K8sServiceLoadbalancerIngressPort>>>;
