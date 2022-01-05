@@ -40,6 +40,7 @@ Authenticate the CloudGraph k8s Provider any of the following ways:
 | node             |           |
 | pod              |           |
 | deployment       |           |
+| service          |           |
 
 
 ## Development

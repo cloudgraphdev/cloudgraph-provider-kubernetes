@@ -723,6 +723,88 @@ export type K8sPodvolumes = {
   vsphereVolume?: Maybe<K8sVolumeVsphereVolume>;
 };
 
+export type K8sService = {
+  id: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  context?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sServiceSpec>;
+  status?: Maybe<K8sServiceStatus>;
+};
+
+export type K8sServiceCondition = {
+  id: Scalars['String'];
+  lastTransitionTime?: Maybe<Scalars['String']>;
+  observedGeneration?: Maybe<Scalars['Int']>;
+  message?: Maybe<Scalars['String']>;
+  reason?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type K8sServiceLoadBalancer = {
+  ingress?: Maybe<Array<Maybe<K8sServiceLoadBalancerIngress>>>;
+};
+
+export type K8sServiceLoadBalancerIngress = {
+  hostname?: Maybe<Scalars['String']>;
+  ip?: Maybe<Scalars['String']>;
+  ports?: Maybe<Array<Maybe<K8sServiceLoadbalancerIngressPort>>>;
+};
+
+export type K8sServiceLoadbalancerIngressPort = {
+  id: Scalars['String'];
+  error?: Maybe<Scalars['String']>;
+  port?: Maybe<Scalars['Int']>;
+  protocol?: Maybe<Scalars['String']>;
+};
+
+export type K8sServiceSessionAffinityConfig = {
+  clientIp?: Maybe<K8sServiceSessionAffinityConfigClientIp>;
+};
+
+export type K8sServiceSessionAffinityConfigClientIp = {
+  timeoutSeconds?: Maybe<Scalars['Int']>;
+};
+
+export type K8sServiceSpec = {
+  allocateLoadBalancerNodePorts?: Maybe<Scalars['Boolean']>;
+  clusterIp?: Maybe<Scalars['String']>;
+  clusterIps?: Maybe<Array<Maybe<Scalars['String']>>>;
+  externalIps?: Maybe<Array<Maybe<Scalars['String']>>>;
+  externalName?: Maybe<Scalars['String']>;
+  externalTrafficPolicy?: Maybe<Scalars['String']>;
+  healthCheckNodePort?: Maybe<Scalars['Int']>;
+  internalTrafficPolicy?: Maybe<Scalars['String']>;
+  ipFamilies?: Maybe<Array<Maybe<Scalars['String']>>>;
+  ipFamilyPolicy?: Maybe<Scalars['String']>;
+  loadBalancerClass?: Maybe<Scalars['String']>;
+  loadBalancerIp?: Maybe<Scalars['String']>;
+  loadBalancerSourceRanges?: Maybe<Array<Maybe<Scalars['String']>>>;
+  ports?: Maybe<Array<Maybe<K8sServiceSpecPort>>>;
+  publishNotReadyAddresses?: Maybe<Scalars['Boolean']>;
+  selector?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  sessionAffinity?: Maybe<Scalars['String']>;
+  sessionAffinityConfig?: Maybe<K8sServiceSessionAffinityConfig>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type K8sServiceSpecPort = {
+  id: Scalars['String'];
+  appProtocol?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  nodePort?: Maybe<Scalars['Int']>;
+  port?: Maybe<Scalars['Int']>;
+  protocol?: Maybe<Scalars['String']>;
+  targetPort?: Maybe<Scalars['String']>;
+};
+
+export type K8sServiceStatus = {
+  conditions?: Maybe<Array<Maybe<K8sServiceCondition>>>;
+  loadBalancer?: Maybe<K8sServiceLoadBalancer>;
+};
+
 export type K8sVolumeClaimTemplate = {
   metadata?: Maybe<K8sVolumeClaimTemplateMetadata>;
   spec?: Maybe<K8sVolumeClaimTemplateSpec>;
