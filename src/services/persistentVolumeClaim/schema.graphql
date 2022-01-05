@@ -1,0 +1,54 @@
+type k8sPersistentVolumeClaim {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sPersistentVolumeClaimSpec
+  status: k8sPersistentVolumeClaimStatus
+}
+
+type k8sPersistentVolumeClaimSpec @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  accessModes: [String] @search(by: [hash, regexp])
+  dataSource: k8sPersistentVolumeClaimDataSource
+  dataSourceRef: k8sPersistentVolumeClaimDataSource
+  resources: k8sPersistentVolumeClaimResources
+  selector: k8sPodAffinitySelector
+  storageClassName: String @search(by: [hash, regexp])
+  volumeMode: String @search(by: [hash, regexp])
+  volumeName: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeClaimStatus @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  accessModes: [String] @search(by: [hash, regexp])
+  capacity: [k8sKeyValueArray],
+  conditions: [k8sPersistentVolumeClaimCondition],
+  phase: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeClaimCondition {
+  id: String! @id
+  lastTransitionTime: String @search(by: [hash, regexp])
+  lastProbeTime: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  status: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeClaimDataSource {
+  apiGroup: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeClaimResources {
+  limits: [k8sKeyValueArray]
+  requests: [k8sKeyValueArray]
+}

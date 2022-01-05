@@ -163,12 +163,15 @@ export default class Provider extends CloudGraph.Client {
     const networkingClient = kc.makeApiClient(k8s.NetworkingV1Api)
     const batchClient = kc.makeApiClient(k8s.BatchV1Api)
     const appsClient = kc.makeApiClient(k8s.AppsV1Api)
+    const storageClient = kc.makeApiClient(k8s.StorageV1Api)
     const client: k8sClient = {
       core: coreClient,
       networking: networkingClient,
       batch: batchClient,
       apps: appsClient,
+      storage: storageClient
     }
+
     // networkingClient.listIngressForAllNamespaces
     // batchClient.listCronJobForAllNamespaces
     // client.listPersistentVolumeClaimForAllNamespaces TODO: create service for persistentVolumeClaim
@@ -184,6 +187,7 @@ export default class Provider extends CloudGraph.Client {
     // client.listPodTemplateForAllNamespaces
     // client.listReplicationControllerForAllNamespaces
     // client.listResourceQuotaForAllNamespaces
+    // storageClient.listStorageClass()
     try {
       for (const resource of resourceNames) {
         const serviceClass = this.getService(resource)
@@ -205,7 +209,7 @@ export default class Provider extends CloudGraph.Client {
           )
         }
       }
-      this.logger.success(`Context: ${context} scan completed`)
+      this.logger.success(`Context: ${context.name} scan completed`)
     } catch (error: any) {
       this.logger.error('There was an error scanning Azure sdk data')
       this.logger.debug(error)

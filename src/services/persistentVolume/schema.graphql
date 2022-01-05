@@ -1,0 +1,87 @@
+type k8sPersistentVolume {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sPersistentVolumeSpec
+  status: k8sPersistentVolumeStatus
+}
+
+type k8sPersistentVolumeSpec @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  accessModes: [String] @search(by: [hash, regexp])
+  awsElasticBlockStore: k8sAwsElasticBlockStore
+  azureDisk: k8sAzureDisk
+  azureFile: k8sAzureFile
+  capacity: [k8sKeyValueArray]
+  cephfs: k8sCephfs
+  cinder: k8sCinder
+  claimRef: k8sClaimRef
+  csi: k8sPersistentVolumeCsi
+  flexVolume: k8sVolumeFlexVolume
+  flocker: k8sVolumeFlocker
+  fc: k8sVolumeFc
+  gcePersistentDisk: k8sVolumeGcePersistentDisk
+  glusterfs: k8sVolumeGlusterfs
+  hostPath: k8sVolumeHostPath
+  iscsi: k8sVolumeIscsi
+  local: k8sPersistentVolumeLocal
+  nfs: k8sVolumeNfs
+  mountOptions: [String] @search(by: [hash, regexp])
+  nodeAffinity: k8sPersistentVolumeNodeAffinity
+  persistentVolumeReclaimPolicy: String @search(by: [hash, regexp])
+  photonPersistentDisk: k8sVolumePhotonPersistentDisk
+  portworxVolume: k8sVolumePortworxVolume
+  quobyte: k8sVolumeQuobyte
+  rbd: k8sVolumeRbd
+  scaleIo: k8sVolumeScaleIo
+  storageClassName: String
+  storageos: k8sVolumeStorageos
+  volumeMode: String @search(by: [hash, regexp])
+  vsphereVolume: k8sVolumeVsphereVolume
+}
+
+type k8sPersistentVolumeStatus @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, delete: false }
+  ) {
+  phase: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+}
+
+type k8sClaimRef {
+  id: String @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  fieldPath: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  namespace: String @search(by: [hash, regexp])
+  resourceVersion: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeCsi {
+  volumeAttributes: [k8sKeyValueArray]
+  controllerExpandSecretRef: k8sVolumeSecretRefObj
+  controllerPublishSecretRef: k8sVolumeSecretRefObj
+  driver: String @search(by: [hash, regexp])
+  fsType: String @search(by: [hash, regexp])
+  readOnly: Boolean @search
+  volumeHandle: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeLocal {
+  fsType: String @search(by: [hash, regexp])
+  path: String @search(by: [hash, regexp])
+}
+
+type k8sPersistentVolumeNodeAffinity {
+  required: k8sPersistentVolumeNodeAffinityRequired
+}
+
+type k8sPersistentVolumeNodeAffinityRequired {
+  nodeSelectorTerms: [k8sPodAffinityNodeSelector]
+}

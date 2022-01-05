@@ -49,6 +49,16 @@ export type K8sCinder = {
   volumeId?: Maybe<Scalars['String']>;
 };
 
+export type K8sClaimRef = {
+  id?: Maybe<Scalars['String']>;
+  apiVersion?: Maybe<Scalars['String']>;
+  fieldPath?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  namespace?: Maybe<Scalars['String']>;
+  resourceVersion?: Maybe<Scalars['String']>;
+};
+
 export type K8sConditions = {
   id: Scalars['String'];
   lastHeartbeatTime?: Maybe<Scalars['String']>;
@@ -350,6 +360,127 @@ export type K8sNodeconfigSourceMap = {
   name?: Maybe<Scalars['String']>;
   namespace?: Maybe<Scalars['String']>;
   resourceVersion?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolume = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sPersistentVolumeSpec>;
+  status?: Maybe<K8sPersistentVolumeStatus>;
+};
+
+export type K8sPersistentVolumeClaim = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sPersistentVolumeClaimSpec>;
+  status?: Maybe<K8sPersistentVolumeClaimStatus>;
+};
+
+export type K8sPersistentVolumeClaimCondition = {
+  id: Scalars['String'];
+  lastTransitionTime?: Maybe<Scalars['String']>;
+  lastProbeTime?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+  reason?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolumeClaimDataSource = {
+  apiGroup?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolumeClaimResources = {
+  limits?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  requests?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+};
+
+export type K8sPersistentVolumeClaimSpec = {
+  accessModes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  dataSource?: Maybe<K8sPersistentVolumeClaimDataSource>;
+  dataSourceRef?: Maybe<K8sPersistentVolumeClaimDataSource>;
+  resources?: Maybe<K8sPersistentVolumeClaimResources>;
+  selector?: Maybe<K8sPodAffinitySelector>;
+  storageClassName?: Maybe<Scalars['String']>;
+  volumeMode?: Maybe<Scalars['String']>;
+  volumeName?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolumeClaimStatus = {
+  accessModes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  capacity?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  conditions?: Maybe<Array<Maybe<K8sPersistentVolumeClaimCondition>>>;
+  phase?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolumeCsi = {
+  volumeAttributes?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  controllerExpandSecretRef?: Maybe<K8sVolumeSecretRefObj>;
+  controllerPublishSecretRef?: Maybe<K8sVolumeSecretRefObj>;
+  driver?: Maybe<Scalars['String']>;
+  fsType?: Maybe<Scalars['String']>;
+  readOnly?: Maybe<Scalars['Boolean']>;
+  volumeHandle?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolumeLocal = {
+  fsType?: Maybe<Scalars['String']>;
+  path?: Maybe<Scalars['String']>;
+};
+
+export type K8sPersistentVolumeNodeAffinity = {
+  required?: Maybe<K8sPersistentVolumeNodeAffinityRequired>;
+};
+
+export type K8sPersistentVolumeNodeAffinityRequired = {
+  nodeSelectorTerms?: Maybe<Array<Maybe<K8sPodAffinityNodeSelector>>>;
+};
+
+export type K8sPersistentVolumeSpec = {
+  accessModes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  awsElasticBlockStore?: Maybe<K8sAwsElasticBlockStore>;
+  azureDisk?: Maybe<K8sAzureDisk>;
+  azureFile?: Maybe<K8sAzureFile>;
+  capacity?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  cephfs?: Maybe<K8sCephfs>;
+  cinder?: Maybe<K8sCinder>;
+  claimRef?: Maybe<K8sClaimRef>;
+  csi?: Maybe<K8sPersistentVolumeCsi>;
+  flexVolume?: Maybe<K8sVolumeFlexVolume>;
+  flocker?: Maybe<K8sVolumeFlocker>;
+  fc?: Maybe<K8sVolumeFc>;
+  gcePersistentDisk?: Maybe<K8sVolumeGcePersistentDisk>;
+  glusterfs?: Maybe<K8sVolumeGlusterfs>;
+  hostPath?: Maybe<K8sVolumeHostPath>;
+  iscsi?: Maybe<K8sVolumeIscsi>;
+  local?: Maybe<K8sPersistentVolumeLocal>;
+  nfs?: Maybe<K8sVolumeNfs>;
+  mountOptions?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nodeAffinity?: Maybe<K8sPersistentVolumeNodeAffinity>;
+  persistentVolumeReclaimPolicy?: Maybe<Scalars['String']>;
+  photonPersistentDisk?: Maybe<K8sVolumePhotonPersistentDisk>;
+  portworxVolume?: Maybe<K8sVolumePortworxVolume>;
+  quobyte?: Maybe<K8sVolumeQuobyte>;
+  rbd?: Maybe<K8sVolumeRbd>;
+  scaleIo?: Maybe<K8sVolumeScaleIo>;
+  storageClassName?: Maybe<Scalars['String']>;
+  storageos?: Maybe<K8sVolumeStorageos>;
+  volumeMode?: Maybe<Scalars['String']>;
+  vsphereVolume?: Maybe<K8sVolumeVsphereVolume>;
+};
+
+export type K8sPersistentVolumeStatus = {
+  phase?: Maybe<Scalars['String']>;
+  reason?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
 };
 
 export type K8sPod = {
@@ -869,6 +1000,32 @@ export type K8sServiceSpecPort = {
 export type K8sServiceStatus = {
   conditions?: Maybe<Array<Maybe<K8sServiceCondition>>>;
   loadBalancer?: Maybe<K8sServiceLoadBalancer>;
+};
+
+export type K8sStorageClass = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  allowVolumeExpansion?: Maybe<Scalars['Boolean']>;
+  allowedTopologies?: Maybe<Array<Maybe<K8sStorageClassAllowedTopology>>>;
+  mountOptions?: Maybe<Array<Maybe<Scalars['String']>>>;
+  provisioner?: Maybe<Scalars['String']>;
+  parameters?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  reclaimPolicy?: Maybe<Scalars['String']>;
+  volumeBindingMode?: Maybe<Scalars['String']>;
+};
+
+export type K8sStorageClassAllowedTopology = {
+  id: Scalars['String'];
+  matchLabelExpressions?: Maybe<Array<Maybe<K8sStorageClassAllowedTopologyMatchLabelExpression>>>;
+};
+
+export type K8sStorageClassAllowedTopologyMatchLabelExpression = {
+  id: Scalars['String'];
+  key?: Maybe<Scalars['String']>;
+  values?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type K8sVolumeClaimTemplate = {

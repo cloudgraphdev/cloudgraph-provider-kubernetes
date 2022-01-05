@@ -6,5 +6,8 @@ export default {
   [services.pod]: 'k8sPod',
   [services.deployment]: 'k8sDeployment',
   [services.service]: 'k8sService',
-  [services.ingress]: 'k8sIngress'
+  [services.ingress]: 'k8sIngress',
+  [services.persistentVolume]: 'k8sPersistentVolume',
+  [services.persistentVolumeClaim]: 'k8sPersistentVolumeClaim',
+  [services.storageClass]: 'k8sStorageClass'
 }

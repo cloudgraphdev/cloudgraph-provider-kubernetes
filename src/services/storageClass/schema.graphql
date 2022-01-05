@@ -1,0 +1,25 @@
+type k8sStorageClass {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  allowVolumeExpansion: Boolean @search
+  allowedTopologies: [k8sStorageClassAllowedTopology]
+  mountOptions: [String] @search(by: [hash, regexp])
+  provisioner: String @search(by: [hash, regexp])
+  parameters: [k8sKeyValueArray]
+  reclaimPolicy: String @search(by: [hash, regexp])
+  volumeBindingMode: String @search(by: [hash, regexp])
+}
+
+type k8sStorageClassAllowedTopology {
+  id: String! @id @search(by: [hash, regexp])
+  matchLabelExpressions: [k8sStorageClassAllowedTopologyMatchLabelExpression]
+}
+
+type k8sStorageClassAllowedTopologyMatchLabelExpression {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  values: [String] @search(by: [hash, regexp])
+}
