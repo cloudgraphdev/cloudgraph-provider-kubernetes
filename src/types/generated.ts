@@ -59,6 +59,75 @@ export type K8sConditions = {
   type?: Maybe<Scalars['String']>;
 };
 
+export type K8sDeployment = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sDeploymentSpec>;
+  status?: Maybe<K8sDeploymentStatus>;
+};
+
+export type K8sDeploymentExpressions = {
+  id: Scalars['String'];
+  key?: Maybe<Scalars['String']>;
+  operator?: Maybe<Scalars['String']>;
+  values?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type K8sDeploymentSelector = {
+  matchExpressions?: Maybe<Array<Maybe<K8sDeploymentExpressions>>>;
+  matchLabels?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+};
+
+export type K8sDeploymentSpec = {
+  minReadySeconds?: Maybe<Scalars['Int']>;
+  paused?: Maybe<Scalars['Boolean']>;
+  progressDeadlineSeconds?: Maybe<Scalars['Int']>;
+  replicas?: Maybe<Scalars['Int']>;
+  revisionHistoryLimit?: Maybe<Scalars['Int']>;
+  strategy?: Maybe<K8sDeploymentStrategy>;
+  selector?: Maybe<K8sDeploymentSelector>;
+  template?: Maybe<K8sDeploymentTemplate>;
+};
+
+export type K8sDeploymentStatus = {
+  availableReplicas?: Maybe<Scalars['Int']>;
+  collisionCount?: Maybe<Scalars['Int']>;
+  conditions?: Maybe<Array<Maybe<K8sDeploymentStatusConditions>>>;
+  observedGeneration?: Maybe<Scalars['Int']>;
+  readyReplicas?: Maybe<Scalars['Int']>;
+  replicas?: Maybe<Scalars['Int']>;
+  unavailableReplicas?: Maybe<Scalars['Int']>;
+  updatedReplicas?: Maybe<Scalars['Int']>;
+};
+
+export type K8sDeploymentStatusConditions = {
+  id: Scalars['String'];
+  lastTransitionTime?: Maybe<Scalars['String']>;
+  lastUpdateTime?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+  reason?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type K8sDeploymentStrategy = {
+  type?: Maybe<Scalars['String']>;
+  rollingUpdate?: Maybe<K8sDeploymentStrategyRollingUpdate>;
+};
+
+export type K8sDeploymentStrategyRollingUpdate = {
+  maxSurge?: Maybe<Scalars['String']>;
+  maxUnavailable?: Maybe<Scalars['String']>;
+};
+
+export type K8sDeploymentTemplate = {
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sPodSpec>;
+};
+
 export type K8sKeyValueArray = {
   id: Scalars['String'];
   key?: Maybe<Scalars['String']>;
@@ -72,6 +141,7 @@ export type K8sLabel = {
 };
 
 export type K8sMetadata = {
+  id?: Maybe<Scalars['String']>;
   annotations?: Maybe<Array<Maybe<K8sLabel>>>;
   clusterName?: Maybe<Scalars['String']>;
   creationTimestamp?: Maybe<Scalars['String']>;
@@ -121,7 +191,7 @@ export type K8sNode = {
 };
 
 export type K8sNodeAddress = {
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   address?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -196,7 +266,7 @@ export type K8sNodeStatusConfig = {
 };
 
 export type K8sNodeTaint = {
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   effect?: Maybe<Scalars['String']>;
   key?: Maybe<Scalars['String']>;
   timeAdded?: Maybe<Scalars['String']>;
@@ -204,7 +274,7 @@ export type K8sNodeTaint = {
 };
 
 export type K8sNodeVolumesAttached = {
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   devicePath?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
@@ -596,7 +666,7 @@ export type K8sPodTolerations = {
 };
 
 export type K8sPodTopologySpreadConstraints = {
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   labelSelector?: Maybe<K8sPodAffinitySelector>;
   maxSkew?: Maybe<Scalars['Int']>;
   topologyKey?: Maybe<Scalars['String']>;

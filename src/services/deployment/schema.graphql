@@ -1,0 +1,68 @@
+type k8sDeployment {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sDeploymentSpec
+  status: k8sDeploymentStatus
+}
+
+type k8sDeploymentSpec {
+  minReadySeconds: Int @search
+  paused: Boolean @search
+  progressDeadlineSeconds: Int @search
+  replicas: Int @search
+  revisionHistoryLimit: Int @search
+  strategy: k8sDeploymentStrategy
+  selector: k8sDeploymentSelector
+  template: k8sDeploymentTemplate
+}
+
+type k8sDeploymentSelector {
+  matchExpressions: [k8sDeploymentExpressions]
+  matchLabels: [k8sKeyValueArray]
+}
+
+type k8sDeploymentTemplate {
+  metadata: k8sMetadata
+  spec: k8sPodSpec
+}
+
+type k8sDeploymentExpressions {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  operator: String @search(by: [hash, regexp])
+  values: [String] @search(by: [hash, regexp])
+}
+
+type k8sDeploymentStatus {
+  availableReplicas: Int @search
+  collisionCount: Int @search
+  conditions: [k8sDeploymentStatusConditions]
+  observedGeneration: Int @search
+  readyReplicas: Int @search
+  replicas: Int @search
+  unavailableReplicas: Int @search
+  updatedReplicas: Int @search
+}
+
+type k8sDeploymentStatusConditions {
+  id: String! @id @search(by: [hash, regexp])
+  lastTransitionTime: String @search(by: [hash, regexp])
+  lastUpdateTime: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  status: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sDeploymentStrategy {
+  type: String @search(by: [hash, regexp])
+  rollingUpdate: k8sDeploymentStrategyRollingUpdate
+}
+
+type k8sDeploymentStrategyRollingUpdate {
+  maxSurge: String @search(by: [hash, regexp])
+  maxUnavailable: String @search(by: [hash, regexp])
+}

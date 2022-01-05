@@ -1,7 +1,7 @@
 import cuid from 'cuid'
 import { V1Node } from '@kubernetes/client-node'
 import { K8sNode } from '../../types/generated'
-import { convertObjToArrayWithId } from '../../util'
+import formatMetadata from '../../util/metadata'
 
 export default ({
   entity,
@@ -13,24 +13,7 @@ export default ({
   const {
     apiVersion,
     kind,
-    metadata: {
-      annotations = {},
-      clusterName,
-      creationTimestamp,
-      deletionGracePeriodSeconds,
-      deletionTimestamp,
-      finalizers,
-      generateName,
-      generation,
-      labels = {},
-      // managedFields, TODO how to handle managed fields, they have weird field names
-      name,
-      namespace,
-      ownerReferences,
-      resourceVersion,
-      selfLink,
-      uid,
-    },
+    metadata,
     spec: {
       configSource: {
         configMap: {
@@ -102,6 +85,7 @@ export default ({
     },
   } = entity
 
+  const formattedMetadata = formatMetadata(metadata)
   const mappedTaints =
     taints?.map(({ effect, key, timeAdded = null, value = '' }) => ({
       id: cuid(),
@@ -163,48 +147,14 @@ export default ({
       type,
     })
   )
-  const mappedOwnerReferences = ownerReferences?.map(
-    ({
-      apiVersion: ownerApiVersion,
-      blockOwnerDeletion,
-      controller,
-      kind: ownerKind,
-      name: ownerName,
-      uid: id,
-    }) => ({
-      id,
-      apiVersion: ownerApiVersion,
-      blockOwnerDeletion,
-      controller,
-      kind: ownerKind,
-      name: ownerName,
-    })
-  )
-  const mappedLabels = convertObjToArrayWithId(labels ?? {})
-  const mappedAnnotations = convertObjToArrayWithId(annotations ?? {})
 
   return {
-    id: uid,
+    id: formattedMetadata.id,
     context,
     apiVersion,
     kind,
     ...importantAddresses,
-    metadata: {
-      annotations: mappedAnnotations,
-      clusterName,
-      creationTimestamp: creationTimestamp?.toISOString() ?? '',
-      deletionGracePeriodSeconds,
-      deletionTimestamp: deletionTimestamp?.toISOString() ?? '',
-      finalizers,
-      generateName,
-      generation,
-      labels: mappedLabels,
-      name,
-      namespace,
-      ownerReferences: mappedOwnerReferences,
-      resourceVersion,
-      selfLink,
-    },
+    metadata: formattedMetadata.metadata,
     spec: {
       providerID,
       unschedulable,

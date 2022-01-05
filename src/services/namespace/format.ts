@@ -1,7 +1,7 @@
 import cuid from 'cuid'
 import { V1Namespace } from '@kubernetes/client-node'
 import { K8sNamespace } from '../../types/generated'
-import { convertObjToArrayWithId } from '../../util'
+import formatMetadata from '../../util/metadata'
 
 export default ({
   entity,
@@ -13,44 +13,13 @@ export default ({
   const {
     apiVersion,
     kind,
-    metadata: {
-      annotations = {},
-      clusterName,
-      creationTimestamp,
-      deletionGracePeriodSeconds,
-      deletionTimestamp,
-      finalizers,
-      generateName,
-      generation,
-      labels = {},
-      name,
-      namespace,
-      ownerReferences,
-      resourceVersion,
-      selfLink,
-      uid,
-    },
+    metadata,
     spec: { finalizers: statusFinalizers = [] },
     status: { phase, conditions },
   } = entity
 
-  const mappedOwnerReferences = ownerReferences?.map(
-    ({
-      apiVersion: ownerApiVersion,
-      blockOwnerDeletion,
-      controller,
-      kind: ownerKind,
-      name: ownerName,
-      uid: id,
-    }) => ({
-      id,
-      apiVersion: ownerApiVersion,
-      blockOwnerDeletion,
-      controller,
-      kind: ownerKind,
-      name: ownerName,
-    })
-  )
+  const formattedMetadata = formatMetadata(metadata)
+
   const mappedConditions = conditions?.map(
     ({ lastTransitionTime, message, reason, status, type }) => ({
       id: cuid(),
@@ -61,29 +30,13 @@ export default ({
       type,
     })
   )
-  const mappedLabels = convertObjToArrayWithId(labels ?? {})
-  const mappedAnnotations = convertObjToArrayWithId(annotations ?? {})
+
   return {
-    id: uid,
+    id: formattedMetadata.id,
     apiVersion,
     kind,
     context,
-    metadata: {
-      annotations: mappedAnnotations,
-      clusterName,
-      creationTimestamp: creationTimestamp?.toISOString() ?? '',
-      deletionGracePeriodSeconds,
-      deletionTimestamp: deletionTimestamp?.toISOString() ?? '',
-      finalizers,
-      generateName,
-      generation,
-      labels: mappedLabels,
-      name,
-      namespace,
-      ownerReferences: mappedOwnerReferences,
-      resourceVersion,
-      selfLink,
-    },
+    metadata: formattedMetadata.metadata,
     spec: {
       finalizers: statusFinalizers,
     },

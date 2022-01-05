@@ -15,6 +15,7 @@ type k8sMetadata @generate(
     query: { get: false, query: false, aggregate: false }
     mutation: { add: false, delete: false }
   ) {
+  id: String #Not a @id but just for deployment
   annotations: [k8sLabel]
   clusterName: String @search(by: [hash, regexp])
   creationTimestamp: String @search(by: [hash, regexp])

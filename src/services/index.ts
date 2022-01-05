@@ -142,10 +142,12 @@ export default class Provider extends CloudGraph.Client {
     const coreClient = kc.makeApiClient(k8s.CoreV1Api)
     const networkingClient = kc.makeApiClient(k8s.NetworkingV1Api)
     const batchClient = kc.makeApiClient(k8s.BatchV1Api)
+    const appsClient = kc.makeApiClient(k8s.AppsV1Api)
     const client: k8sClient = {
       core: coreClient,
       networking: networkingClient,
-      batch: batchClient
+      batch: batchClient,
+      apps: appsClient
     }
     // networkingClient.listIngressForAllNamespaces
     // batchClient.listCronJobForAllNamespaces
@@ -168,7 +170,7 @@ export default class Provider extends CloudGraph.Client {
         if (serviceClass && serviceClass.getData) {
           // const startDate = new Date()
           const data = await serviceClass.getData({
-            config: { client, networkingClient, batchClient },
+            config: { client },
             opts,
           })
           result.push({
