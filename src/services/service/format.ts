@@ -49,8 +49,8 @@ export default ({
       sessionAffinity,
       sessionAffinityConfig,
       type,
-    },
-    status: { conditions, loadBalancer },
+    } = {},
+    status: { conditions, loadBalancer } = {},
   } = entity
 
   const formattedMetadata = formatMetadata(metadata)
