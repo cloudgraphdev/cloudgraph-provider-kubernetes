@@ -34,14 +34,17 @@ Authenticate the CloudGraph k8s Provider any of the following ways:
 
 ## Supported Services
 
-| Service          | Relations |
-| ---------------- | --------- |
-| deployment       |           |
-| ingress          |           |
-| namespace        |           |
-| node             |           |
-| pod              |           |
-| service          |           |
+| Service                      | Relations |
+| ---------------------------- | --------- |
+| deployment                   |           |
+| ingress                      |           |
+| namespace                    |           |
+| node                         |           |
+| persistentVolume             |           |
+| persistentVolumeClaim        |           |
+| pod                          |           |
+| service                      |           |
+| storageClass                 |           |
 
 
 ## Development
