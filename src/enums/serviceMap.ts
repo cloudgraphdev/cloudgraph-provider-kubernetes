@@ -8,6 +8,7 @@ import Ingress from '../services/ingress'
 import PersistentVolume from '../services/persistentVolume'
 import PersistentVolumeClaim from '../services/persistentVolumeClaim'
 import StorageClass from '../services/storageClass'
+import ServiceAccount from '../services/serviceAccount'
 
 export default {
   [services.node]: Node,
@@ -18,5 +19,6 @@ export default {
   [services.ingress]: Ingress,
   [services.persistentVolume]: PersistentVolume,
   [services.persistentVolumeClaim]: PersistentVolumeClaim,
-  [services.storageClass]: StorageClass
+  [services.storageClass]: StorageClass,
+  [services.serviceAccount]: ServiceAccount
 }

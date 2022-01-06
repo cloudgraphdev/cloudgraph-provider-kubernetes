@@ -6,6 +6,7 @@ type k8sService {
   metadata: k8sMetadata
   spec: k8sServiceSpec
   status: k8sServiceStatus
+  namespace: [k8sNamespace] @hasInverse(field: service)
 }
 
 type k8sServiceSpec {

@@ -6,6 +6,7 @@ type k8sPod {
   metadata: k8sMetadata
   spec: k8sPodSpec
   status: k8sPodStatus
+  namespace: [k8sNamespace] @hasInverse(field: pod)
 }
 
 type k8sPodSpec {

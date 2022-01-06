@@ -172,22 +172,16 @@ export default class Provider extends CloudGraph.Client {
       storage: storageClient
     }
 
-    // networkingClient.listIngressForAllNamespaces
     // batchClient.listCronJobForAllNamespaces
-    // client.listPersistentVolumeClaimForAllNamespaces TODO: create service for persistentVolumeClaim
-    // client.listPersistentVolume TODO: create service for persistentVolume
     // client.listConfigMapForAllNamespaces
     // client.listSecretForAllNamespaces
     // client.listServiceAccountForAllNamespaces
     // client.listServiceForAllNamespaces
     // client.listEndpointsForAllNamespaces
     // client.listEventForAllNamespaces
-    // client.listNamespace
-    // client.listPodForAllNamespaces
     // client.listPodTemplateForAllNamespaces
     // client.listReplicationControllerForAllNamespaces
     // client.listResourceQuotaForAllNamespaces
-    // storageClient.listStorageClass()
     try {
       for (const resource of resourceNames) {
         const serviceClass = this.getService(resource)
@@ -245,6 +239,18 @@ export default class Provider extends CloudGraph.Client {
               context: serviceData.context,
             })
             entities.push(formattedData)
+            if (serviceClass.getConnections) {
+              const newConnections = serviceClass.getConnections({
+                service: entity,
+                context: serviceData.context,
+                data: rawData,
+              })
+  
+              result.connections = {
+                ...result.connections,
+                ...newConnections
+              }
+            }
           } catch (e) {
             this.logger.debug(e)
             this.logger.error(

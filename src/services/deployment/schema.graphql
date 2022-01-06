@@ -6,6 +6,7 @@ type k8sDeployment {
   metadata: k8sMetadata
   spec: k8sDeploymentSpec
   status: k8sDeploymentStatus
+  namespace: [k8sNamespace] @hasInverse(field: deployment)
 }
 
 type k8sDeploymentSpec {

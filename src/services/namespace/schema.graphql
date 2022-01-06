@@ -6,6 +6,15 @@ type k8sNamespace {
   metadata: k8sMetadata
   spec: k8sNamespaceSpec
   status: k8sNamespaceStatus
+  node: [k8sNode] @hasInverse(field: namespace)
+  pod: [k8sPod] @hasInverse(field: namespace)
+  deployment: [k8sDeployment] @hasInverse(field: namespace)
+  ingress: [k8sIngress] @hasInverse(field: namespace)
+  service: [k8sService] @hasInverse(field: namespace)
+  serviceAccount: [k8sServiceAccount] @hasInverse(field: namespace)
+  storageClass: [k8sStorageClass] @hasInverse(field: namespace)
+  persistentVolume: [k8sPersistentVolume] @hasInverse(field: namespace)
+  persistentVolumeClaim: [k8sPersistentVolumeClaim] @hasInverse(field: namespace)
 }
 
 type k8sNamespaceSpec @generate(

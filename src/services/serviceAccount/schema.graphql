@@ -1,0 +1,26 @@
+type k8sServiceAccount {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  automountServiceAccountToken: Boolean @search
+  imagePullSecrets: [k8sImagePullSecret],
+  secrets: [k8sServiceAccountSecret]
+  namespace: [k8sNamespace] @hasInverse(field: serviceAccount)
+}
+
+type k8sImagePullSecret {
+  id: String! @id
+  name: String @search(by: [hash, regexp])
+}
+
+type k8sServiceAccountSecret {
+  id: String! @id @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  fieldPath: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  namespace: String @search(by: [hash, regexp])
+  resourceVersion: String @search(by: [hash, regexp])
+}

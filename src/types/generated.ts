@@ -77,6 +77,7 @@ export type K8sDeployment = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sDeploymentSpec>;
   status?: Maybe<K8sDeploymentStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sDeploymentExpressions = {
@@ -138,6 +139,11 @@ export type K8sDeploymentTemplate = {
   spec?: Maybe<K8sPodSpec>;
 };
 
+export type K8sImagePullSecret = {
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
 export type K8sIngress = {
   id: Scalars['String'];
   context: Scalars['String'];
@@ -146,6 +152,7 @@ export type K8sIngress = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sIngressSpec>;
   status?: Maybe<K8sIngressStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sIngressBackend = {
@@ -241,6 +248,15 @@ export type K8sNamespace = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sNamespaceSpec>;
   status?: Maybe<K8sNamespaceStatus>;
+  node?: Maybe<Array<Maybe<K8sNode>>>;
+  pod?: Maybe<Array<Maybe<K8sPod>>>;
+  deployment?: Maybe<Array<Maybe<K8sDeployment>>>;
+  ingress?: Maybe<Array<Maybe<K8sIngress>>>;
+  service?: Maybe<Array<Maybe<K8sService>>>;
+  serviceAccount?: Maybe<Array<Maybe<K8sServiceAccount>>>;
+  storageClass?: Maybe<Array<Maybe<K8sStorageClass>>>;
+  persistentVolume?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
+  persistentVolumeClaim?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
 };
 
 export type K8sNamespaceSpec = {
@@ -263,6 +279,7 @@ export type K8sNode = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sNodeSpec>;
   status?: Maybe<K8sNodeStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sNodeAddress = {
@@ -370,6 +387,7 @@ export type K8sPersistentVolume = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sPersistentVolumeSpec>;
   status?: Maybe<K8sPersistentVolumeStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sPersistentVolumeClaim = {
@@ -380,6 +398,7 @@ export type K8sPersistentVolumeClaim = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sPersistentVolumeClaimSpec>;
   status?: Maybe<K8sPersistentVolumeClaimStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sPersistentVolumeClaimCondition = {
@@ -491,6 +510,7 @@ export type K8sPod = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sPodSpec>;
   status?: Maybe<K8sPodStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sPodAffinity = {
@@ -927,6 +947,29 @@ export type K8sService = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sServiceSpec>;
   status?: Maybe<K8sServiceStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sServiceAccount = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  automountServiceAccountToken?: Maybe<Scalars['Boolean']>;
+  imagePullSecrets?: Maybe<Array<Maybe<K8sImagePullSecret>>>;
+  secrets?: Maybe<Array<Maybe<K8sServiceAccountSecret>>>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sServiceAccountSecret = {
+  id: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  fieldPath?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  namespace?: Maybe<Scalars['String']>;
+  resourceVersion?: Maybe<Scalars['String']>;
 };
 
 export type K8sServiceCondition = {
@@ -1015,6 +1058,7 @@ export type K8sStorageClass = {
   parameters?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
   reclaimPolicy?: Maybe<Scalars['String']>;
   volumeBindingMode?: Maybe<Scalars['String']>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sStorageClassAllowedTopology = {
