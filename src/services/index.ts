@@ -164,17 +164,20 @@ export default class Provider extends CloudGraph.Client {
     const batchClient = kc.makeApiClient(k8s.BatchV1Api)
     const appsClient = kc.makeApiClient(k8s.AppsV1Api)
     const storageClient = kc.makeApiClient(k8s.StorageV1Api)
+    const rolesClient = kc.makeApiClient(k8s.RbacAuthorizationV1Api)
     const client: k8sClient = {
       core: coreClient,
       networking: networkingClient,
       batch: batchClient,
       apps: appsClient,
-      storage: storageClient
+      storage: storageClient,
+      roles: rolesClient
     }
+
+    // rolesClient.listRoleForAllNamespaces
     // networkingClient.listNetworkPolicyForAllNamespaces
     // batchClient.listCronJobForAllNamespaces
     // client.listConfigMapForAllNamespaces
-    // client.listSecretForAllNamespaces
     // client.listEndpointsForAllNamespaces
     // client.listEventForAllNamespaces
     // client.listPodTemplateForAllNamespaces

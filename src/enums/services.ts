@@ -6,6 +6,7 @@ export default {
   persistentVolume: 'persistentVolume',
   persistentVolumeClaim: 'persistentVolumeClaim',
   pod: 'pod',
+  role: 'role',
   secret: 'secret',
   service: 'service',
   serviceAccount: 'serviceAccount',
