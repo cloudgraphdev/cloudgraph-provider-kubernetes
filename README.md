@@ -43,6 +43,7 @@ Authenticate the CloudGraph k8s Provider any of the following ways:
 | persistentVolume             | namespace          |
 | persistentVolumeClaim        | namespace          |
 | pod                          | namespace          |
+| secret                       | namespace          |
 | service                      | namespace          |
 | serviceAccount               | namespace          |
 | storageClass                 | namespace          |

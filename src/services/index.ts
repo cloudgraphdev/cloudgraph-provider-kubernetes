@@ -171,12 +171,10 @@ export default class Provider extends CloudGraph.Client {
       apps: appsClient,
       storage: storageClient
     }
-
+    // networkingClient.listNetworkPolicyForAllNamespaces
     // batchClient.listCronJobForAllNamespaces
     // client.listConfigMapForAllNamespaces
     // client.listSecretForAllNamespaces
-    // client.listServiceAccountForAllNamespaces
-    // client.listServiceForAllNamespaces
     // client.listEndpointsForAllNamespaces
     // client.listEventForAllNamespaces
     // client.listPodTemplateForAllNamespaces
