@@ -7,5 +7,6 @@ export default {
   persistentVolumeClaim: 'persistentVolumeClaim',
   pod: 'pod',
   service: 'service',
+  serviceAccount: 'serviceAccount',
   storageClass: 'storageClass'
 }

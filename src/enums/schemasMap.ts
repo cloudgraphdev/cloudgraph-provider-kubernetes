@@ -9,5 +9,6 @@ export default {
   [services.ingress]: 'k8sIngress',
   [services.persistentVolume]: 'k8sPersistentVolume',
   [services.persistentVolumeClaim]: 'k8sPersistentVolumeClaim',
-  [services.storageClass]: 'k8sStorageClass'
+  [services.storageClass]: 'k8sStorageClass',
+  [services.serviceAccount]: 'k8sServiceAccount'
 }

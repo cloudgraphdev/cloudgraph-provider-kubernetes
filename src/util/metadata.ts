@@ -58,6 +58,7 @@ export default (metadata: V1ObjectMeta): FormattedMetadata => {
   return {
     id: uid,
     metadata: {
+      id: uid,
       annotations: mappedAnnotations,
       clusterName,
       creationTimestamp: creationTimestamp?.toISOString() ?? '',
