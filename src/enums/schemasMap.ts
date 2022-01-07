@@ -5,6 +5,7 @@ export default {
   [services.namespace]: 'k8sNamespace',
   [services.pod]: 'k8sPod',
   [services.deployment]: 'k8sDeployment',
+  [services.secret]: 'k8sSecret',
   [services.service]: 'k8sService',
   [services.ingress]: 'k8sIngress',
   [services.persistentVolume]: 'k8sPersistentVolume',

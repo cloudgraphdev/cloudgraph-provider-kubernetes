@@ -252,6 +252,7 @@ export type K8sNamespace = {
   pod?: Maybe<Array<Maybe<K8sPod>>>;
   deployment?: Maybe<Array<Maybe<K8sDeployment>>>;
   ingress?: Maybe<Array<Maybe<K8sIngress>>>;
+  secret?: Maybe<Array<Maybe<K8sSecret>>>;
   service?: Maybe<Array<Maybe<K8sService>>>;
   serviceAccount?: Maybe<Array<Maybe<K8sServiceAccount>>>;
   storageClass?: Maybe<Array<Maybe<K8sStorageClass>>>;
@@ -937,6 +938,19 @@ export type K8sPodvolumes = {
   secret?: Maybe<K8sVolumeSecret>;
   storageos?: Maybe<K8sVolumeStorageos>;
   vsphereVolume?: Maybe<K8sVolumeVsphereVolume>;
+};
+
+export type K8sSecret = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  data?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  immutable?: Maybe<Scalars['Boolean']>;
+  stringData?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+  type?: Maybe<Scalars['String']>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
 };
 
 export type K8sService = {

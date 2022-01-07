@@ -10,6 +10,7 @@ type k8sNamespace {
   pod: [k8sPod] @hasInverse(field: namespace)
   deployment: [k8sDeployment] @hasInverse(field: namespace)
   ingress: [k8sIngress] @hasInverse(field: namespace)
+  secret: [k8sSecret] @hasInverse(field: namespace)
   service: [k8sService] @hasInverse(field: namespace)
   serviceAccount: [k8sServiceAccount] @hasInverse(field: namespace)
   storageClass: [k8sStorageClass] @hasInverse(field: namespace)
