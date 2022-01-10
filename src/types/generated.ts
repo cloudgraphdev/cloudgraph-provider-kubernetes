@@ -341,6 +341,7 @@ export type K8sNamespace = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sNamespaceSpec>;
   status?: Maybe<K8sNamespaceStatus>;
+  networkPolicy?: Maybe<Array<Maybe<K8sNetworkPolicy>>>;
   node?: Maybe<Array<Maybe<K8sNode>>>;
   pod?: Maybe<Array<Maybe<K8sPod>>>;
   deployment?: Maybe<Array<Maybe<K8sDeployment>>>;
@@ -363,6 +364,54 @@ export type K8sNamespaceSpec = {
 export type K8sNamespaceStatus = {
   phase?: Maybe<Scalars['String']>;
   conditions?: Maybe<Array<Maybe<K8sConditions>>>;
+};
+
+export type K8sNetworkPolicy = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sNetworkPolicySpec>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sNetworkPolicyEgress = {
+  id: Scalars['String'];
+  ports?: Maybe<Array<Maybe<K8sNetworkPolicyPort>>>;
+  to?: Maybe<Array<Maybe<K8sNetworkPolicyPeer>>>;
+};
+
+export type K8sNetworkPolicyIngress = {
+  id: Scalars['String'];
+  ports?: Maybe<Array<Maybe<K8sNetworkPolicyPort>>>;
+  from?: Maybe<Array<Maybe<K8sNetworkPolicyPeer>>>;
+};
+
+export type K8sNetworkPolicyPeer = {
+  id: Scalars['String'];
+  ipBlock?: Maybe<K8sNetworkPolicyPeerIpBlock>;
+  namespaceSelector?: Maybe<K8sDeploymentSelector>;
+  podSelector?: Maybe<K8sDeploymentSelector>;
+};
+
+export type K8sNetworkPolicyPeerIpBlock = {
+  cidr?: Maybe<Scalars['String']>;
+  except?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type K8sNetworkPolicyPort = {
+  id: Scalars['String'];
+  endPort?: Maybe<Scalars['Int']>;
+  port?: Maybe<Scalars['String']>;
+  protocol?: Maybe<Scalars['String']>;
+};
+
+export type K8sNetworkPolicySpec = {
+  egress?: Maybe<Array<Maybe<K8sNetworkPolicyEgress>>>;
+  ingress?: Maybe<Array<Maybe<K8sNetworkPolicyIngress>>>;
+  podSelector?: Maybe<K8sDeploymentSelector>;
+  policyTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type K8sNode = {

@@ -6,6 +6,7 @@ type k8sNamespace {
   metadata: k8sMetadata
   spec: k8sNamespaceSpec
   status: k8sNamespaceStatus
+  networkPolicy: [k8sNetworkPolicy] @hasInverse(field: namespace)
   node: [k8sNode] @hasInverse(field: namespace)
   pod: [k8sPod] @hasInverse(field: namespace)
   deployment: [k8sDeployment] @hasInverse(field: namespace)
