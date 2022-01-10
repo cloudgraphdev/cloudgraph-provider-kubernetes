@@ -38,6 +38,7 @@ Authenticate the CloudGraph k8s Provider any of the following ways:
 | ---------------------------- | ------------------ |
 | deployment                   | namespace          |
 | ingress                      | namespace          |
+| job                          | namespace          |
 | namespace                    | ALL SERVICES       |
 | node                         | namespace          |
 | persistentVolume             | namespace          |
