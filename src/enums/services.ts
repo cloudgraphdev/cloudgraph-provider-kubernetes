@@ -1,6 +1,7 @@
 export default {
   deployment: 'deployment',
   ingress: 'ingress',
+  job: 'job',
   namespace: 'namespace',
   node: 'node',
   persistentVolume: 'persistentVolume',
