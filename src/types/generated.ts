@@ -69,6 +69,49 @@ export type K8sConditions = {
   type?: Maybe<Scalars['String']>;
 };
 
+export type K8sCronJob = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sCronJobSpec>;
+  status?: Maybe<K8sCronJobStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sCronJobActive = {
+  id: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  fieldPath?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  namespace?: Maybe<Scalars['String']>;
+  resourceVersion?: Maybe<Scalars['String']>;
+};
+
+export type K8sCronJobJobTemplate = {
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sJobSpec>;
+};
+
+export type K8sCronJobSpec = {
+  concurrencyPolicy?: Maybe<Scalars['String']>;
+  failedJobsHistoryLimit?: Maybe<Scalars['Int']>;
+  jobTemplate?: Maybe<K8sCronJobJobTemplate>;
+  schedule?: Maybe<Scalars['String']>;
+  startingDeadlineSeconds?: Maybe<Scalars['Int']>;
+  successfulJobsHistoryLimit?: Maybe<Scalars['Int']>;
+  suspend?: Maybe<Scalars['Boolean']>;
+  template?: Maybe<K8sJobTemplate>;
+};
+
+export type K8sCronJobStatus = {
+  active?: Maybe<Array<Maybe<K8sCronJobActive>>>;
+  lastScheduleTime?: Maybe<Scalars['String']>;
+  lastSuccessfulTime?: Maybe<Scalars['String']>;
+};
+
 export type K8sDeployment = {
   id: Scalars['String'];
   context: Scalars['String'];
@@ -116,7 +159,6 @@ export type K8sDeploymentStatus = {
 
 export type K8sDeploymentStatusConditions = {
   id: Scalars['String'];
-  lastProbeTime?: Maybe<Scalars['String']>;
   lastTransitionTime?: Maybe<Scalars['String']>;
   lastUpdateTime?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
@@ -244,7 +286,7 @@ export type K8sJobStatus = {
   active?: Maybe<Scalars['Int']>;
   completedIndexes?: Maybe<Scalars['String']>;
   completionTime?: Maybe<Scalars['String']>;
-  conditions?: Maybe<Array<Maybe<K8sDeploymentStatusConditions>>>;
+  conditions?: Maybe<Array<Maybe<K8sPersistentVolumeClaimCondition>>>;
   failed?: Maybe<Scalars['Int']>;
   startTime?: Maybe<Scalars['String']>;
   succeeded?: Maybe<Scalars['Int']>;
@@ -311,6 +353,7 @@ export type K8sNamespace = {
   persistentVolumeClaim?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
   role?: Maybe<Array<Maybe<K8sRole>>>;
   job?: Maybe<Array<Maybe<K8sJob>>>;
+  cronJob?: Maybe<Array<Maybe<K8sCronJob>>>;
 };
 
 export type K8sNamespaceSpec = {

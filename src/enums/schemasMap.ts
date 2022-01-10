@@ -8,6 +8,7 @@ export default {
   [services.secret]: 'k8sSecret',
   [services.service]: 'k8sService',
   [services.ingress]: 'k8sIngress',
+  [services.cronJob]: 'k8sCronJob',
   [services.job]: 'k8sJob',
   [services.role]: 'k8sRole',
   [services.persistentVolume]: 'k8sPersistentVolume',

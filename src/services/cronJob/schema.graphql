@@ -1,0 +1,42 @@
+type k8sCronJob {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sCronJobSpec
+  status: k8sCronJobStatus
+  namespace: [k8sNamespace] @hasInverse(field: cronJob)
+}
+
+type k8sCronJobSpec {
+  concurrencyPolicy: String @search(by: [hash, regexp])
+  failedJobsHistoryLimit: Int @search
+  jobTemplate: k8sCronJobJobTemplate
+  schedule: String @search(by: [hash, regexp])
+  startingDeadlineSeconds: Int @search
+  successfulJobsHistoryLimit: Int @search
+  suspend: Boolean @search
+  template: k8sJobTemplate
+}
+
+type k8sCronJobStatus {
+  active: [k8sCronJobActive]
+  lastScheduleTime: String @search(by: [hash, regexp])
+  lastSuccessfulTime: String @search(by: [hash, regexp])
+}
+
+type k8sCronJobJobTemplate {
+  metadata: k8sMetadata
+  spec: k8sJobSpec
+}
+
+type k8sCronJobActive {
+  id: String! @id @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  fieldPath: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  name: String @search(by: [hash, regexp])
+  namespace: String @search(by: [hash, regexp])
+  resourceVersion: String @search(by: [hash, regexp])
+}
