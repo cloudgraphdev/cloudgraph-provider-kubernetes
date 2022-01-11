@@ -1,0 +1,66 @@
+type k8sJob {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sJobSpec
+  status: k8sJobStatus
+  namespace: [k8sNamespace] @hasInverse(field: job)
+}
+
+type k8sJobSpec {
+  activeDeadlineSeconds: Int @search
+  backoffLimit: Int @search
+  completionMode: String @search(by: [hash, regexp])
+  completions: Int @search
+  manualSelector: Boolean @search
+  parallelism: Int @search
+  selector: k8sJobSelector
+  suspend: Boolean @search
+  template: k8sJobTemplate
+  ttlSecondsAfterFinished: Int @search
+}
+
+type k8sJobStatus {
+  active: Int @search
+  completedIndexes: String @search(by: [hash, regexp])
+  completionTime: String @search(by: [hash, regexp])
+  conditions: [k8sDeploymentStatusConditions]
+  failed: Int @search
+  startTime: String @search(by: [hash, regexp])
+  succeeded: Int @search
+  uncountedTerminatedPods: k8sJobUncountedTerminatedPods
+}
+
+type k8sJobSelector {
+  matchExpressions: [k8sDeploymentExpressions]
+  matchLabels: [k8sKeyValueArray]
+}
+
+type k8sJobTemplate {
+  metadata: k8sMetadata
+  spec: k8sPodSpec
+}
+
+type k8sDeploymentExpressions {
+  id: String! @id @search(by: [hash, regexp])
+  key: String @search(by: [hash, regexp])
+  operator: String @search(by: [hash, regexp])
+  values: [String] @search(by: [hash, regexp])
+}
+
+type k8sDeploymentStatusConditions {
+  id: String! @id @search(by: [hash, regexp])
+  lastTransitionTime: String @search(by: [hash, regexp])
+  lastProbeTime: String @search(by: [hash, regexp])
+  message: String @search(by: [hash, regexp])
+  reason: String @search(by: [hash, regexp])
+  status: String @search(by: [hash, regexp])
+  type: String @search(by: [hash, regexp])
+}
+
+type k8sJobUncountedTerminatedPods {
+  failed: [String] @search(by: [hash, regexp])
+  succeeded: [String] @search(by: [hash, regexp])
+}

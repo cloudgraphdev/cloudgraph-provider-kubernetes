@@ -116,6 +116,7 @@ export type K8sDeploymentStatus = {
 
 export type K8sDeploymentStatusConditions = {
   id: Scalars['String'];
+  lastProbeTime?: Maybe<Scalars['String']>;
   lastTransitionTime?: Maybe<Scalars['String']>;
   lastUpdateTime?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
@@ -210,6 +211,56 @@ export type K8sIngressTls = {
   secretName?: Maybe<Scalars['String']>;
 };
 
+export type K8sJob = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sJobSpec>;
+  status?: Maybe<K8sJobStatus>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sJobSelector = {
+  matchExpressions?: Maybe<Array<Maybe<K8sDeploymentExpressions>>>;
+  matchLabels?: Maybe<Array<Maybe<K8sKeyValueArray>>>;
+};
+
+export type K8sJobSpec = {
+  activeDeadlineSeconds?: Maybe<Scalars['Int']>;
+  backoffLimit?: Maybe<Scalars['Int']>;
+  completionMode?: Maybe<Scalars['String']>;
+  completions?: Maybe<Scalars['Int']>;
+  manualSelector?: Maybe<Scalars['Boolean']>;
+  parallelism?: Maybe<Scalars['Int']>;
+  selector?: Maybe<K8sJobSelector>;
+  suspend?: Maybe<Scalars['Boolean']>;
+  template?: Maybe<K8sJobTemplate>;
+  ttlSecondsAfterFinished?: Maybe<Scalars['Int']>;
+};
+
+export type K8sJobStatus = {
+  active?: Maybe<Scalars['Int']>;
+  completedIndexes?: Maybe<Scalars['String']>;
+  completionTime?: Maybe<Scalars['String']>;
+  conditions?: Maybe<Array<Maybe<K8sDeploymentStatusConditions>>>;
+  failed?: Maybe<Scalars['Int']>;
+  startTime?: Maybe<Scalars['String']>;
+  succeeded?: Maybe<Scalars['Int']>;
+  uncountedTerminatedPods?: Maybe<K8sJobUncountedTerminatedPods>;
+};
+
+export type K8sJobTemplate = {
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sPodSpec>;
+};
+
+export type K8sJobUncountedTerminatedPods = {
+  failed?: Maybe<Array<Maybe<Scalars['String']>>>;
+  succeeded?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
 export type K8sKeyValueArray = {
   id: Scalars['String'];
   key?: Maybe<Scalars['String']>;
@@ -259,6 +310,7 @@ export type K8sNamespace = {
   persistentVolume?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
   persistentVolumeClaim?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
   role?: Maybe<Array<Maybe<K8sRole>>>;
+  job?: Maybe<Array<Maybe<K8sJob>>>;
 };
 
 export type K8sNamespaceSpec = {

@@ -11,6 +11,7 @@ import StorageClass from '../services/storageClass'
 import ServiceAccount from '../services/serviceAccount'
 import Secret from '../services/secret'
 import Role from '../services/role'
+import Job from '../services/job'
 
 export default {
   [services.node]: Node,
@@ -20,6 +21,7 @@ export default {
   [services.secret]: Secret,
   [services.service]: Service,
   [services.ingress]: Ingress,
+  [services.job]: Job,
   [services.role]: Role,
   [services.persistentVolume]: PersistentVolume,
   [services.persistentVolumeClaim]: PersistentVolumeClaim,
