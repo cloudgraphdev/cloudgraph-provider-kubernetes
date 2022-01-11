@@ -258,6 +258,7 @@ export type K8sNamespace = {
   storageClass?: Maybe<Array<Maybe<K8sStorageClass>>>;
   persistentVolume?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
   persistentVolumeClaim?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
+  role?: Maybe<Array<Maybe<K8sRole>>>;
 };
 
 export type K8sNamespaceSpec = {
@@ -938,6 +939,25 @@ export type K8sPodvolumes = {
   secret?: Maybe<K8sVolumeSecret>;
   storageos?: Maybe<K8sVolumeStorageos>;
   vsphereVolume?: Maybe<K8sVolumeVsphereVolume>;
+};
+
+export type K8sRole = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  rules?: Maybe<Array<Maybe<K8sRule>>>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sRule = {
+  id: Scalars['String'];
+  apiGroups?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nonResourceUrls?: Maybe<Array<Maybe<Scalars['String']>>>;
+  resources?: Maybe<Array<Maybe<Scalars['String']>>>;
+  resourceNames?: Maybe<Array<Maybe<Scalars['String']>>>;
+  verbs?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type K8sSecret = {

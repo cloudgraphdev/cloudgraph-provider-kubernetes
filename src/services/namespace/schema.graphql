@@ -16,6 +16,7 @@ type k8sNamespace {
   storageClass: [k8sStorageClass] @hasInverse(field: namespace)
   persistentVolume: [k8sPersistentVolume] @hasInverse(field: namespace)
   persistentVolumeClaim: [k8sPersistentVolumeClaim] @hasInverse(field: namespace)
+  role: [k8sRole] @hasInverse(field: namespace)
 }
 
 type k8sNamespaceSpec @generate(

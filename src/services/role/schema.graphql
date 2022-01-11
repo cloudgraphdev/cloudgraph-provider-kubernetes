@@ -1,0 +1,18 @@
+type k8sRole {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  rules: [k8sRule]
+  namespace: [k8sNamespace] @hasInverse(field: role)
+}
+
+type k8sRule {
+  id: String! @id @search(by: [hash, regexp])
+  apiGroups: [String] @search(by: [hash, regexp])
+  nonResourceUrls: [String] @search(by: [hash, regexp])
+  resources: [String] @search(by: [hash, regexp])
+  resourceNames: [String] @search(by: [hash, regexp])
+  verbs: [String] @search(by: [hash, regexp])
+}
