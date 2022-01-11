@@ -99,7 +99,7 @@ export default class Provider extends CloudGraph.Client {
         'k8s'
       )} configuration successfully completed ${confettiBall}`
     )
-    this.logSelectedAccessRegionsAndResources(result.contexts, result.resources)
+    this.logSelectedAccessRegionsAndResources(result.contexts.map(({ name }) => name), result.resources)
     return result
   }
 
@@ -174,9 +174,7 @@ export default class Provider extends CloudGraph.Client {
       roles: rolesClient
     }
 
-    // rolesClient.listRoleForAllNamespaces
     // networkingClient.listNetworkPolicyForAllNamespaces
-    // batchClient.listCronJobForAllNamespaces
     // client.listConfigMapForAllNamespaces
     // client.listEndpointsForAllNamespaces
     // client.listEventForAllNamespaces
