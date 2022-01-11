@@ -12,6 +12,7 @@ import ServiceAccount from '../services/serviceAccount'
 import Secret from '../services/secret'
 import Role from '../services/role'
 import Job from '../services/job'
+import CronJob from '../services/cronJob'
 
 export default {
   [services.node]: Node,
@@ -21,6 +22,7 @@ export default {
   [services.secret]: Secret,
   [services.service]: Service,
   [services.ingress]: Ingress,
+  [services.cronJob]: CronJob,
   [services.job]: Job,
   [services.role]: Role,
   [services.persistentVolume]: PersistentVolume,

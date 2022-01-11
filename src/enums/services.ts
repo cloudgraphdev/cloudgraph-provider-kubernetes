@@ -1,4 +1,5 @@
 export default {
+  cronJob: 'cronJob',
   deployment: 'deployment',
   ingress: 'ingress',
   job: 'job',

@@ -26,7 +26,7 @@ type k8sJobStatus {
   active: Int @search
   completedIndexes: String @search(by: [hash, regexp])
   completionTime: String @search(by: [hash, regexp])
-  conditions: [k8sDeploymentStatusConditions]
+  conditions: [k8sPersistentVolumeClaimCondition]
   failed: Int @search
   startTime: String @search(by: [hash, regexp])
   succeeded: Int @search
@@ -41,23 +41,6 @@ type k8sJobSelector {
 type k8sJobTemplate {
   metadata: k8sMetadata
   spec: k8sPodSpec
-}
-
-type k8sDeploymentExpressions {
-  id: String! @id @search(by: [hash, regexp])
-  key: String @search(by: [hash, regexp])
-  operator: String @search(by: [hash, regexp])
-  values: [String] @search(by: [hash, regexp])
-}
-
-type k8sDeploymentStatusConditions {
-  id: String! @id @search(by: [hash, regexp])
-  lastTransitionTime: String @search(by: [hash, regexp])
-  lastProbeTime: String @search(by: [hash, regexp])
-  message: String @search(by: [hash, regexp])
-  reason: String @search(by: [hash, regexp])
-  status: String @search(by: [hash, regexp])
-  type: String @search(by: [hash, regexp])
 }
 
 type k8sJobUncountedTerminatedPods {
