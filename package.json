@@ -1,9 +1,13 @@
 {
-  "name": "@cloudgraph/cg-provider-k8s",
+  "name": "@cloudgraph/cg-provider-kubernetes",
   "version": "0.0.1",
   "description": "Kubernetes provider for the CloudGraph CLI",
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://www.cloudgraph.dev/",
   "repository": "https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes.git",
+  "bugs": "https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes/issues",
   "main": "dist/services/index.js",
   "types": "dist/services/index.d.ts",
   "author": "AutoCloud",
