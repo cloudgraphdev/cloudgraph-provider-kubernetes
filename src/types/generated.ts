@@ -341,20 +341,20 @@ export type K8sNamespace = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sNamespaceSpec>;
   status?: Maybe<K8sNamespaceStatus>;
-  networkPolicy?: Maybe<Array<Maybe<K8sNetworkPolicy>>>;
-  node?: Maybe<Array<Maybe<K8sNode>>>;
-  pod?: Maybe<Array<Maybe<K8sPod>>>;
-  deployment?: Maybe<Array<Maybe<K8sDeployment>>>;
-  ingress?: Maybe<Array<Maybe<K8sIngress>>>;
-  secret?: Maybe<Array<Maybe<K8sSecret>>>;
-  service?: Maybe<Array<Maybe<K8sService>>>;
-  serviceAccount?: Maybe<Array<Maybe<K8sServiceAccount>>>;
-  storageClass?: Maybe<Array<Maybe<K8sStorageClass>>>;
-  persistentVolume?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
-  persistentVolumeClaim?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
-  role?: Maybe<Array<Maybe<K8sRole>>>;
-  job?: Maybe<Array<Maybe<K8sJob>>>;
-  cronJob?: Maybe<Array<Maybe<K8sCronJob>>>;
+  networkPolicies?: Maybe<Array<Maybe<K8sNetworkPolicy>>>;
+  nodes?: Maybe<Array<Maybe<K8sNode>>>;
+  pods?: Maybe<Array<Maybe<K8sPod>>>;
+  deployments?: Maybe<Array<Maybe<K8sDeployment>>>;
+  ingresses?: Maybe<Array<Maybe<K8sIngress>>>;
+  secrets?: Maybe<Array<Maybe<K8sSecret>>>;
+  services?: Maybe<Array<Maybe<K8sService>>>;
+  serviceAccounts?: Maybe<Array<Maybe<K8sServiceAccount>>>;
+  storageClasses?: Maybe<Array<Maybe<K8sStorageClass>>>;
+  persistentVolumes?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
+  persistentVolumeClaims?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
+  roles?: Maybe<Array<Maybe<K8sRole>>>;
+  jobs?: Maybe<Array<Maybe<K8sJob>>>;
+  cronJobs?: Maybe<Array<Maybe<K8sCronJob>>>;
 };
 
 export type K8sNamespaceSpec = {

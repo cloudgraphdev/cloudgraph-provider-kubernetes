@@ -5,7 +5,7 @@ type k8sNetworkPolicy {
   kind: String @search(by: [hash, regexp])
   metadata: k8sMetadata
   spec: k8sNetworkPolicySpec
-  namespace: [k8sNamespace] @hasInverse(field: networkPolicy)
+  namespace: [k8sNamespace] @hasInverse(field: networkPolicies)
 }
 
 type k8sNetworkPolicySpec {

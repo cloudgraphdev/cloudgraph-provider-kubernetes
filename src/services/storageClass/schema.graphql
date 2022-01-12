@@ -11,7 +11,7 @@ type k8sStorageClass {
   parameters: [k8sKeyValueArray]
   reclaimPolicy: String @search(by: [hash, regexp])
   volumeBindingMode: String @search(by: [hash, regexp])
-  namespace: [k8sNamespace] @hasInverse(field: storageClass)
+  namespace: [k8sNamespace] @hasInverse(field: storageClasses)
 }
 
 type k8sStorageClassAllowedTopology {

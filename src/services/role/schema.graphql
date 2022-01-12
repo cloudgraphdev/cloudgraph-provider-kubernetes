@@ -5,7 +5,7 @@ type k8sRole {
   kind: String @search(by: [hash, regexp])
   metadata: k8sMetadata
   rules: [k8sRule]
-  namespace: [k8sNamespace] @hasInverse(field: role)
+  namespace: [k8sNamespace] @hasInverse(field: roles)
 }
 
 type k8sRule {
