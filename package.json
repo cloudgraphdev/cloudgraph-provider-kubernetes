@@ -1,5 +1,5 @@
 {
-  "name": "@cloudgraph/cg-provider-kubernetes",
+  "name": "@cloudgraph/cg-provider-k8s",
   "version": "0.0.1",
   "description": "Kubernetes provider for the CloudGraph CLI",
   "publishConfig": {
