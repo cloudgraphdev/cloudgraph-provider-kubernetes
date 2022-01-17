@@ -1,6 +1,6 @@
 {
   "name": "@cloudgraph/cg-provider-k8s",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Kubernetes provider for the CloudGraph CLI",
   "publishConfig": {
     "access": "public"
