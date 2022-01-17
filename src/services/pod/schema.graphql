@@ -307,26 +307,8 @@ type k8sVolumePersistentVolumeClaim {
 }
 
 type k8sVolumeClaimTemplate {
-  metadata: k8sVolumeClaimTemplateMetadata
+  metadata: k8sMetadata
   spec: k8sVolumeClaimTemplateSpec
-}
-
-type k8sVolumeClaimTemplateMetadata {
-  annotations: [k8sKeyValueArray]
-  clusterName: String @search(by: [hash, regexp])
-  creationTimestamp: String @search(by: [hash, regexp])
-  deletionGracePeriodSeconds: Int @search
-  deletionTimestamp: String @search(by: [hash, regexp])
-  finalizers: [String] @search(by: [hash, regexp])
-  generateName: String @search(by: [hash, regexp])
-  generation: Int @search
-  labels: [k8sKeyValueArray]
-  name: String @search(by: [hash, regexp])
-  namespace: String @search(by: [hash, regexp])
-  ownerReferences: [k8sVolumeOwnerReference],
-  resourceVersion: String @search(by: [hash, regexp])
-  selfLink: String @search(by: [hash, regexp])
-  metadataUid: String @search(by: [hash, regexp])
 }
 
 type k8sVolumeClaimTemplateSpec {

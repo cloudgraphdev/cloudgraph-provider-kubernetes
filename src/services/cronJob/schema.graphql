@@ -17,7 +17,6 @@ type k8sCronJobSpec {
   startingDeadlineSeconds: Int @search
   successfulJobsHistoryLimit: Int @search
   suspend: Boolean @search
-  template: k8sJobTemplate
 }
 
 type k8sCronJobStatus {
