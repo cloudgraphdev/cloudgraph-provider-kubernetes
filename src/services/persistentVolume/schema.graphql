@@ -6,7 +6,7 @@ type k8sPersistentVolume {
   metadata: k8sMetadata
   spec: k8sPersistentVolumeSpec
   status: k8sPersistentVolumeStatus
-  namespace: [k8sNamespace] @hasInverse(field: persistentVolume)
+  namespace: [k8sNamespace] @hasInverse(field: persistentVolumes)
 }
 
 type k8sPersistentVolumeSpec @generate(

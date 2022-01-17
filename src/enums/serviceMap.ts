@@ -13,10 +13,12 @@ import Secret from '../services/secret'
 import Role from '../services/role'
 import Job from '../services/job'
 import CronJob from '../services/cronJob'
+import NetworkPolicy from '../services/networkPolicy'
 
 export default {
   [services.node]: Node,
   [services.namespace]: Namespace,
+  [services.networkPolicy]: NetworkPolicy,
   [services.pod]: Pod,
   [services.deployment]: Deployment,
   [services.secret]: Secret,

@@ -6,7 +6,7 @@ type k8sCronJob {
   metadata: k8sMetadata
   spec: k8sCronJobSpec
   status: k8sCronJobStatus
-  namespace: [k8sNamespace] @hasInverse(field: cronJob)
+  namespace: [k8sNamespace] @hasInverse(field: cronJobs)
 }
 
 type k8sCronJobSpec {
@@ -17,7 +17,6 @@ type k8sCronJobSpec {
   startingDeadlineSeconds: Int @search
   successfulJobsHistoryLimit: Int @search
   suspend: Boolean @search
-  template: k8sJobTemplate
 }
 
 type k8sCronJobStatus {

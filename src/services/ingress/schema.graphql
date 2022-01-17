@@ -6,7 +6,7 @@ type k8sIngress {
   metadata: k8sMetadata
   spec: k8sIngressSpec
   status: k8sIngressStatus
-  namespace: [k8sNamespace] @hasInverse(field: ingress)
+  namespace: [k8sNamespace] @hasInverse(field: ingresses)
 }
 
 type k8sIngressSpec {

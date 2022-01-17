@@ -3,6 +3,7 @@ import services from './services'
 export default {
   [services.node]: 'k8sNode',
   [services.namespace]: 'k8sNamespace',
+  [services.networkPolicy]: 'k8sNetworkPolicy',
   [services.pod]: 'k8sPod',
   [services.deployment]: 'k8sDeployment',
   [services.secret]: 'k8sSecret',

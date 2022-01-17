@@ -6,7 +6,7 @@ type k8sJob {
   metadata: k8sMetadata
   spec: k8sJobSpec
   status: k8sJobStatus
-  namespace: [k8sNamespace] @hasInverse(field: job)
+  namespace: [k8sNamespace] @hasInverse(field: jobs)
 }
 
 type k8sJobSpec {

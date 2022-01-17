@@ -341,19 +341,20 @@ export type K8sNamespace = {
   metadata?: Maybe<K8sMetadata>;
   spec?: Maybe<K8sNamespaceSpec>;
   status?: Maybe<K8sNamespaceStatus>;
-  node?: Maybe<Array<Maybe<K8sNode>>>;
-  pod?: Maybe<Array<Maybe<K8sPod>>>;
-  deployment?: Maybe<Array<Maybe<K8sDeployment>>>;
-  ingress?: Maybe<Array<Maybe<K8sIngress>>>;
-  secret?: Maybe<Array<Maybe<K8sSecret>>>;
-  service?: Maybe<Array<Maybe<K8sService>>>;
-  serviceAccount?: Maybe<Array<Maybe<K8sServiceAccount>>>;
-  storageClass?: Maybe<Array<Maybe<K8sStorageClass>>>;
-  persistentVolume?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
-  persistentVolumeClaim?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
-  role?: Maybe<Array<Maybe<K8sRole>>>;
-  job?: Maybe<Array<Maybe<K8sJob>>>;
-  cronJob?: Maybe<Array<Maybe<K8sCronJob>>>;
+  networkPolicies?: Maybe<Array<Maybe<K8sNetworkPolicy>>>;
+  nodes?: Maybe<Array<Maybe<K8sNode>>>;
+  pods?: Maybe<Array<Maybe<K8sPod>>>;
+  deployments?: Maybe<Array<Maybe<K8sDeployment>>>;
+  ingresses?: Maybe<Array<Maybe<K8sIngress>>>;
+  secrets?: Maybe<Array<Maybe<K8sSecret>>>;
+  services?: Maybe<Array<Maybe<K8sService>>>;
+  serviceAccounts?: Maybe<Array<Maybe<K8sServiceAccount>>>;
+  storageClasses?: Maybe<Array<Maybe<K8sStorageClass>>>;
+  persistentVolumes?: Maybe<Array<Maybe<K8sPersistentVolume>>>;
+  persistentVolumeClaims?: Maybe<Array<Maybe<K8sPersistentVolumeClaim>>>;
+  roles?: Maybe<Array<Maybe<K8sRole>>>;
+  jobs?: Maybe<Array<Maybe<K8sJob>>>;
+  cronJobs?: Maybe<Array<Maybe<K8sCronJob>>>;
 };
 
 export type K8sNamespaceSpec = {
@@ -363,6 +364,54 @@ export type K8sNamespaceSpec = {
 export type K8sNamespaceStatus = {
   phase?: Maybe<Scalars['String']>;
   conditions?: Maybe<Array<Maybe<K8sConditions>>>;
+};
+
+export type K8sNetworkPolicy = {
+  id: Scalars['String'];
+  context: Scalars['String'];
+  apiVersion?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  metadata?: Maybe<K8sMetadata>;
+  spec?: Maybe<K8sNetworkPolicySpec>;
+  namespace?: Maybe<Array<Maybe<K8sNamespace>>>;
+};
+
+export type K8sNetworkPolicyEgress = {
+  id: Scalars['String'];
+  ports?: Maybe<Array<Maybe<K8sNetworkPolicyPort>>>;
+  to?: Maybe<Array<Maybe<K8sNetworkPolicyPeer>>>;
+};
+
+export type K8sNetworkPolicyIngress = {
+  id: Scalars['String'];
+  ports?: Maybe<Array<Maybe<K8sNetworkPolicyPort>>>;
+  from?: Maybe<Array<Maybe<K8sNetworkPolicyPeer>>>;
+};
+
+export type K8sNetworkPolicyPeer = {
+  id: Scalars['String'];
+  ipBlock?: Maybe<K8sNetworkPolicyPeerIpBlock>;
+  namespaceSelector?: Maybe<K8sDeploymentSelector>;
+  podSelector?: Maybe<K8sDeploymentSelector>;
+};
+
+export type K8sNetworkPolicyPeerIpBlock = {
+  cidr?: Maybe<Scalars['String']>;
+  except?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type K8sNetworkPolicyPort = {
+  id: Scalars['String'];
+  endPort?: Maybe<Scalars['Int']>;
+  port?: Maybe<Scalars['String']>;
+  protocol?: Maybe<Scalars['String']>;
+};
+
+export type K8sNetworkPolicySpec = {
+  egress?: Maybe<Array<Maybe<K8sNetworkPolicyEgress>>>;
+  ingress?: Maybe<Array<Maybe<K8sNetworkPolicyIngress>>>;
+  podSelector?: Maybe<K8sDeploymentSelector>;
+  policyTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type K8sNode = {

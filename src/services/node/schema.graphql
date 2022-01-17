@@ -9,7 +9,7 @@ type k8sNode {
   metadata: k8sMetadata
   spec: k8sNodeSpec
   status: k8sNodeStatus
-  namespace: [k8sNamespace] @hasInverse(field: node)
+  namespace: [k8sNamespace] @hasInverse(field: nodes)
 }
 
 type k8sMetadata @generate(

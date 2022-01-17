@@ -4,6 +4,7 @@ export default {
   ingress: 'ingress',
   job: 'job',
   namespace: 'namespace',
+  networkPolicy: 'networkPolicy',
   node: 'node',
   persistentVolume: 'persistentVolume',
   persistentVolumeClaim: 'persistentVolumeClaim',

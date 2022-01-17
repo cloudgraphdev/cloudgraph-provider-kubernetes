@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import { ServiceConnection } from '@cloudgraph/sdk'
 import { V1Namespace } from '@kubernetes/client-node'
 import services from '../../enums/services'
+import plurals from '../../enums/pluralization'
 
 /**
  * Service Account
@@ -36,7 +37,7 @@ export default ({
             id: service.metadata?.uid,
             resourceType: entity.name,
             relation: 'child',
-            field: entity.name
+            field: plurals[entity.name] ?? entity.name
           })
         }
       }

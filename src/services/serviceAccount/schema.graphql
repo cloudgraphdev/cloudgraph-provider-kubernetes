@@ -7,7 +7,7 @@ type k8sServiceAccount {
   automountServiceAccountToken: Boolean @search
   imagePullSecrets: [k8sImagePullSecret],
   secrets: [k8sServiceAccountSecret]
-  namespace: [k8sNamespace] @hasInverse(field: serviceAccount)
+  namespace: [k8sNamespace] @hasInverse(field: serviceAccounts)
 }
 
 type k8sImagePullSecret {

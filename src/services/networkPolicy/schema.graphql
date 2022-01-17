@@ -1,0 +1,52 @@
+type k8sNetworkPolicy {
+  id: String! @id @search(by: [hash, regexp])
+  context: String! @search(by: [hash, regexp])
+  apiVersion: String @search(by: [hash, regexp])
+  kind: String @search(by: [hash, regexp])
+  metadata: k8sMetadata
+  spec: k8sNetworkPolicySpec
+  namespace: [k8sNamespace] @hasInverse(field: networkPolicies)
+}
+
+type k8sNetworkPolicySpec {
+  egress: [k8sNetworkPolicyEgress]
+  ingress: [k8sNetworkPolicyIngress]
+  podSelector: k8sDeploymentSelector
+  policyTypes: [String] @search(by: [hash, regexp])
+}
+
+type k8sDeploymentSelector {
+  matchExpressions: [k8sDeploymentExpressions]
+  matchLabels: [k8sKeyValueArray]
+}
+
+type k8sNetworkPolicyEgress {
+  id: String! @id @search(by: [hash, regexp])
+  ports: [k8sNetworkPolicyPort]
+  to: [k8sNetworkPolicyPeer]
+}
+
+type k8sNetworkPolicyIngress {
+  id: String! @id @search(by: [hash, regexp])
+  ports: [k8sNetworkPolicyPort]
+  from: [k8sNetworkPolicyPeer]
+}
+
+type k8sNetworkPolicyPort {
+  id: String! @id @search(by: [hash, regexp])
+  endPort: Int @search
+  port: String @search(by: [hash, regexp])
+  protocol: String @search(by: [hash, regexp])
+}
+
+type k8sNetworkPolicyPeer {
+  id: String! @id @search(by: [hash, regexp])
+  ipBlock: k8sNetworkPolicyPeerIpBlock
+  namespaceSelector: k8sDeploymentSelector
+  podSelector: k8sDeploymentSelector
+}
+
+type k8sNetworkPolicyPeerIpBlock {
+  cidr: String @search(by: [hash, regexp])
+  except: [String] @search(by: [hash, regexp])
+}
