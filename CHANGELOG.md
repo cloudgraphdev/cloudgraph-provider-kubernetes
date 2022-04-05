@@ -1,3 +1,17 @@
+# [0.1.0-beta.1](https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes/compare/0.0.1...0.1.0-beta.1) (2022-04-05)
+
+
+### Bug Fixes
+
+* **config:** update config log out to use context.name ([d12bcd5](https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes/commit/d12bcd5be92a1c263421c4658cd95c4ecc6983fb))
+* **services:** small fixes for cronJob and pod schemas ([932fad2](https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes/commit/932fad23e4cc82561f2ed055ee7e5d21ed9f6fcf))
+* **services:** update service connection names to plural ([5a4030d](https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes/commit/5a4030df7c31c910e56a54b8d6a336eba2ea2a67))
+
+
+### Features
+
+* **services:** add networkPolicy service ([8c6c9d5](https://github.com/cloudgraphdev/cloudgraph-provider-kubernetes/commit/8c6c9d5a55d1041e57fea291c0f9412c3bfb4d13))
+
 # 1.0.0-alpha.1 (2022-04-05)
 
 
